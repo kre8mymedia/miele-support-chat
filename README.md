@@ -7,6 +7,8 @@
 
   <p>This is a <a href="https://nextjs.org/" target="_blank">Next.js</a> project bootstrapped with <code>create-next-app</code>, added with <a href="https://chakra-ui.com" target="_blank"><b>Chakra UI</b></a> and <a href="https://www.typescriptlang.org" target="_blank"><b>TypeScript</b></a> setup. <br/> Start developing right away!</p>
 
+## Add api key to **NEXT_PUBLIC_PE_API_KEY** in .env
+
 </div>
 
 - ✔️ toolings for linting, formatting, and conventions configured
