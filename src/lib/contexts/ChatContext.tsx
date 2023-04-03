@@ -1,7 +1,7 @@
 import { useDisclosure } from '@chakra-ui/react';
 import { useContext, createContext, useState } from 'react';
 
-import { API_KEY, HOST } from '../config';
+import { API_KEY, AWS_BUCKET_NAME, HOST, VECTORSTORE_FILE_PATH } from '../config';
 import type { IContextProvider } from '../interfaces/Provider';
 
 import { useAppContext } from './AppContext';
@@ -23,8 +23,8 @@ export default function ChatProvider({ children }: IContextProvider) {
   const [systemMessage, setSystemMessage] = useState(defaultSystemMessage);
 
   const [params, setParams] = useState({
-    bucketName: 'prompt-engineers-dev',
-    filePath: 'formio.pkl',
+    bucketName: AWS_BUCKET_NAME || 'prompt-engineers-dev',
+    filePath: VECTORSTORE_FILE_PATH || 'formio.pkl',
   });
   const [wsUrl, setWsUrl] = useState(
     `${HOST}/chat-vector-db?api_key=${API_KEY}&bucket=${params.bucketName}&path=${params.filePath}`
