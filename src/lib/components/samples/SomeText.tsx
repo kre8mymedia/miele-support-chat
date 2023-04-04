@@ -5,15 +5,15 @@ const SomeText = () => {
   return (
     <Grid textAlign="center">
       <Heading as="h1" size="lg">
-        <ChakraLink 
-          color="blue.200" 
+        <ChakraLink
+          color="blue.200"
           href="https://promptengineers.ai"
           isExternal
           rel="noopener noreferrer"
         >
           Prompt Engineers
-        </ChakraLink>
-        {' '}Chat Starter
+        </ChakraLink>{' '}
+        Chat Starter
       </Heading>
 
       <Text fontSize="xs">
