@@ -227,10 +227,15 @@ export default function DocChat() {
           <Box textAlign="center">
             <FormHelperText>
               Form.io{' '}
-              <Link href="https://help.form.io">
-                <ChakraLink color="blue.200">Docs</ChakraLink>
-              </Link>{' '}
-              from Chat Context
+              <ChakraLink 
+                color="blue.200"
+                href="https://help.form.io"
+                isExternal
+                rel="noopener noreferrer"
+              >
+                Docs
+              </ChakraLink>
+              {' '}from Chat Context
             </FormHelperText>
           </Box>
         </FormControl>
