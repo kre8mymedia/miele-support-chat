@@ -1,11 +1,22 @@
-import { Box, Button, Flex, FormControl, IconButton, InputGroup, InputRightElement, Textarea, useColorMode } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  IconButton,
+  InputGroup,
+  InputRightElement,
+  Textarea,
+  useColorMode,
+} from '@chakra-ui/react';
 import { useState, useRef, useEffect, CSSProperties } from 'react';
+import { TbSend } from 'react-icons/tb';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { okaidia } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import rehypeRaw from 'rehype-raw';
+
 import { useChatContext } from '../../contexts/ChatContext';
-import { TbSend } from 'react-icons/tb';
 
 export default function DocChat() {
   const { colorMode } = useColorMode();
@@ -31,7 +42,7 @@ export default function DocChat() {
   const [question, setQuestion] = useState('');
   const [shouldScroll, setShouldScroll] = useState(true);
   const [sendButtonColor, setSendButtonColor] = useState('gray');
-  const newColor = (colorMode === 'light') ? 'red' : 'cyan';
+  const newColor = colorMode === 'light' ? 'red' : 'cyan';
 
   const handleScroll = () => {
     const chatContainer = chatContainerRef.current;
@@ -89,13 +100,12 @@ export default function DocChat() {
   }, [messages, shouldScroll]);
 
   useEffect(() => {
-    
     if (!question) {
-      setSendButtonColor('gray')
+      setSendButtonColor('gray');
     } else {
-      setSendButtonColor(newColor)
+      setSendButtonColor(newColor);
     }
-  }, [question])
+  }, [question]);
 
   return (
     <Box m={1} mt={-4} height="100%">
@@ -105,14 +115,14 @@ export default function DocChat() {
             ref={chatContainerRef}
             onScroll={handleScroll}
             style={{
-              height: "75vh",
-              overflowY: "scroll",
-              maxWidth: "100vw",
+              height: '75vh',
+              overflowY: 'scroll',
+              maxWidth: '100vw',
             }}
           >
             <div
               style={{
-                background: (colorMode === 'light') ? 'whitesmoke' : '#171923',
+                background: colorMode === 'light' ? 'whitesmoke' : '#171923',
                 padding: '10px',
                 whiteSpace: 'pre-line',
               }}
@@ -178,7 +188,7 @@ export default function DocChat() {
         <FormControl isRequired>
           <InputGroup>
             <Textarea
-              pr={'34px'}
+              pr="34px"
               placeholder="Ask a question..."
               ref={inputRef}
               onChange={(e: any) => setQuestion(e.target.value)}
@@ -194,7 +204,7 @@ export default function DocChat() {
               <IconButton
                 fontSize={19}
                 color={sendButtonColor}
-                variant={'unstyled'}
+                variant="unstyled"
                 aria-label="Send message"
                 icon={<TbSend />}
                 type="submit"

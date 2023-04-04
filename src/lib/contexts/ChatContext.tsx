@@ -1,6 +1,12 @@
 import { useColorMode, useDisclosure } from '@chakra-ui/react';
 import { useContext, createContext, useState, useEffect } from 'react';
-import { API_KEY, AWS_BUCKET_NAME, HOST, VECTORSTORE_FILE_PATH } from '../config';
+
+import {
+  API_KEY,
+  AWS_BUCKET_NAME,
+  HOST,
+  VECTORSTORE_FILE_PATH,
+} from '../config';
 import type { IContextProvider } from '../interfaces/Provider';
 
 import { useAppContext } from './AppContext';
@@ -13,8 +19,8 @@ export default function ChatProvider({ children }: IContextProvider) {
   const { colorMode } = useColorMode();
   const [websckt, setWebsckt] = useState<WebSocket>();
   const [connected, setConnected] = useState(true);
-  const oldColor = (colorMode === 'light') ? 'cyan' : 'red';
-  const newColor = (colorMode === 'light') ? 'red' : 'cyan';
+  const oldColor = colorMode === 'light' ? 'cyan' : 'red';
+  const newColor = colorMode === 'light' ? 'red' : 'cyan';
   // Settings
   const [chatModel, setChatModel] = useState('gpt-3.5-turbo');
   const [header, setHeader] = useState('');
@@ -63,9 +69,9 @@ export default function ChatProvider({ children }: IContextProvider) {
   }
 
   useEffect(() => {
-    const switchColor = messages.replace(new RegExp(oldColor, 'g'), newColor)
-    setMessages(switchColor)
-  }, [colorMode])
+    const switchColor = messages.replace(new RegExp(oldColor, 'g'), newColor);
+    setMessages(switchColor);
+  }, [colorMode]);
 
   return (
     <ChatContext.Provider
