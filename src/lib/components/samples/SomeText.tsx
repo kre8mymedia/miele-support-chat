@@ -1,10 +1,11 @@
-import { Grid, Heading, Text } from '@chakra-ui/react';
+import { Grid, Heading, Text, Link as ChakraLink } from '@chakra-ui/react';
+import Link from 'next/link';
 
 const SomeText = () => {
   return (
     <Grid textAlign="center">
       <Heading as="h1" size="lg">
-        Prompt Engineers Chat Starter
+        <Link href="https://promptengineers.ai"><ChakraLink color="blue.200">Prompt Engineers</ChakraLink></Link> Chat Starter
       </Heading>
 
       <Text fontSize="xs">

@@ -26,9 +26,6 @@ const Home = () => {
     <>
       <NextSeo title="Home" />
       <DocChat />
-      {/* <SomeText />
-      <SomeImage />
-      <CTASection /> */}
     </>
   );
 };

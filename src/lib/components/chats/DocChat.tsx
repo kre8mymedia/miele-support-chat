@@ -20,6 +20,8 @@ import { okaidia } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import rehypeRaw from 'rehype-raw';
 
 import { useChatContext } from '../../contexts/ChatContext';
+import CTASection from '../samples/CTASection';
+import SomeText from '../samples/SomeText';
 
 export default function DocChat() {
   const { colorMode } = useColorMode();
@@ -169,16 +171,23 @@ export default function DocChat() {
             ref={chatContainerRef}
             style={{
               height: '70vh',
-              textAlign: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               position: 'relative',
             }}
           >
+            <Box>
+              <SomeText />
+              <CTASection />
+            </Box>
             <h3
               style={{
                 position: 'absolute',
                 bottom: 3,
                 left: 0,
                 right: 0,
+                textAlign: 'center',
               }}
             >
               {connected ? 'What can I help you accomplish?' : '📡 Loading...'}
