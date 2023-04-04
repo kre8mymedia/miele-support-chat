@@ -1,5 +1,5 @@
-import { useDisclosure } from '@chakra-ui/react';
-import { useContext, createContext, useState } from 'react';
+import { useColorMode, useDisclosure } from '@chakra-ui/react';
+import { useContext, createContext, useState, useEffect } from 'react';
 
 import { API_KEY, AWS_BUCKET_NAME, HOST, VECTORSTORE_FILE_PATH } from '../config';
 import type { IContextProvider } from '../interfaces/Provider';
@@ -11,6 +11,8 @@ export const ChatContext = createContext({});
 export const defaultSystemMessage = `Use the following pieces of context to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer. Please provide a code snippet wrapped in triple backticks, along with the language name for proper formatting.`;
 
 export default function ChatProvider({ children }: IContextProvider) {
+  const { colorMode } = useColorMode();
+  const [chatBg, setChatBg] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { loading, setLoading } = useAppContext();
   const [connected, setConnected] = useState(true);
@@ -64,6 +66,13 @@ export default function ChatProvider({ children }: IContextProvider) {
     setConnected(false);
     websckt?.close();
   }
+
+  useEffect(() => {
+    const oldColor = (colorMode === 'light') ? 'cyan' : 'red';
+    const newColor = (colorMode === 'light') ? 'red' : 'cyan';
+    const switchColor = messages.replace(oldColor, newColor)
+    setMessages(switchColor)
+  }, [colorMode])
 
   return (
     <ChatContext.Provider

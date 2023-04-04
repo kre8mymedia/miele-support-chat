@@ -1,14 +1,13 @@
-import { Box, Button, Flex, FormControl, Textarea } from '@chakra-ui/react';
+import { Box, Button, Flex, FormControl, Textarea, useColorMode } from '@chakra-ui/react';
 import { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { okaidia } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import rehypeRaw from 'rehype-raw';
-
-import { API_KEY, HOST } from '../../config';
 import { useChatContext } from '../../contexts/ChatContext';
 
 export default function DocChat() {
+  const { colorMode } = useColorMode();
   const chatContainerRef: React.RefObject<HTMLDivElement> = useRef(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const {
@@ -97,7 +96,7 @@ export default function DocChat() {
           >
             <div
               style={{
-                background: '#171923',
+                // background: '#171923',
                 padding: '10px',
                 whiteSpace: 'pre-line',
               }}
@@ -122,7 +121,7 @@ export default function DocChat() {
                         language={match[1]}
                         PreTag="section"
                         {...props}
-                        style={okaidia}
+                        style={colorMode === 'light' ? undefined : okaidia}
                       />
                     ) : (
                       <code className={className} {...props}>
