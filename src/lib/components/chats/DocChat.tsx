@@ -1,10 +1,11 @@
-import { Box, Button, Flex, FormControl, Textarea, useColorMode } from '@chakra-ui/react';
-import { useState, useRef, useEffect } from 'react';
+import { Box, Button, Flex, FormControl, IconButton, InputGroup, InputRightElement, Textarea, useColorMode } from '@chakra-ui/react';
+import { useState, useRef, useEffect, CSSProperties } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { okaidia } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import rehypeRaw from 'rehype-raw';
 import { useChatContext } from '../../contexts/ChatContext';
+import { TbSend } from 'react-icons/tb';
 
 export default function DocChat() {
   const { colorMode } = useColorMode();
@@ -29,6 +30,8 @@ export default function DocChat() {
   } = useChatContext();
   const [question, setQuestion] = useState('');
   const [shouldScroll, setShouldScroll] = useState(true);
+  const [sendButtonColor, setSendButtonColor] = useState('gray');
+  const newColor = (colorMode === 'light') ? 'red' : 'cyan';
 
   const handleScroll = () => {
     const chatContainer = chatContainerRef.current;
@@ -85,18 +88,31 @@ export default function DocChat() {
     }
   }, [messages, shouldScroll]);
 
+  useEffect(() => {
+    
+    if (!question) {
+      setSendButtonColor('gray')
+    } else {
+      setSendButtonColor(newColor)
+    }
+  }, [question])
+
   return (
-    <Box m={1} height="100%">
+    <Box m={1} mt={-4} height="100%">
       <Box mb={1}>
         {messages ? (
           <div
             ref={chatContainerRef}
             onScroll={handleScroll}
-            style={{ height: '70vh', overflowY: 'scroll', maxWidth: '100vw' }}
+            style={{
+              height: "75vh",
+              overflowY: "scroll",
+              maxWidth: "100vw",
+            }}
           >
             <div
               style={{
-                // background: '#171923',
+                background: (colorMode === 'light') ? 'whitesmoke' : '#171923',
                 padding: '10px',
                 whiteSpace: 'pre-line',
               }}
@@ -160,27 +176,33 @@ export default function DocChat() {
       <Box mb={1}>
         <Box textAlign="center">{header}</Box>
         <FormControl isRequired>
-          <Textarea
-            placeholder="Ask a question..."
-            ref={inputRef}
-            onChange={(e: any) => setQuestion(e.target.value)}
-            value={question || ''}
-          />
+          <InputGroup>
+            <Textarea
+              pr={'34px'}
+              placeholder="Ask a question..."
+              ref={inputRef}
+              onChange={(e: any) => setQuestion(e.target.value)}
+              value={question || ''}
+            />
+            <InputRightElement
+              position="absolute"
+              right="-7px"
+              bottom="0px"
+              height="auto"
+              zIndex="2"
+            >
+              <IconButton
+                fontSize={19}
+                color={sendButtonColor}
+                variant={'unstyled'}
+                aria-label="Send message"
+                icon={<TbSend />}
+                type="submit"
+                onClick={(e) => sendMessage(e)}
+              />
+            </InputRightElement>
+          </InputGroup>
         </FormControl>
-      </Box>
-      <Box>
-        <Flex alignItems="center">
-          <Button
-            isLoading={!connected}
-            isDisabled={!connected}
-            colorScheme="blue"
-            variant="solid"
-            onClick={(e) => sendMessage(e)}
-            float="right"
-          >
-            Ask
-          </Button>
-        </Flex>
       </Box>
     </Box>
   );

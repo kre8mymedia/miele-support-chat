@@ -1,6 +1,5 @@
 import { useColorMode, useDisclosure } from '@chakra-ui/react';
 import { useContext, createContext, useState, useEffect } from 'react';
-
 import { API_KEY, AWS_BUCKET_NAME, HOST, VECTORSTORE_FILE_PATH } from '../config';
 import type { IContextProvider } from '../interfaces/Provider';
 
@@ -8,22 +7,20 @@ import { useAppContext } from './AppContext';
 
 export const ChatContext = createContext({});
 
-export const defaultSystemMessage = `Use the following pieces of context to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer. Please provide a code snippet wrapped in triple backticks, along with the language name for proper formatting.`;
+export const defaultSystemMessage = `Use the following pieces of context to answer the question at the end. If you don't know the answer or if the required code is not present, just say that you don't know, and don't try to make up an answer. Please provide a code snippet wrapped in triple backticks, along with the language name for proper formatting, if applicable.`;
 
 export default function ChatProvider({ children }: IContextProvider) {
   const { colorMode } = useColorMode();
-  const [chatBg, setChatBg] = useState('');
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { loading, setLoading } = useAppContext();
+  const [websckt, setWebsckt] = useState<WebSocket>();
   const [connected, setConnected] = useState(true);
+  const oldColor = (colorMode === 'light') ? 'cyan' : 'red';
+  const newColor = (colorMode === 'light') ? 'red' : 'cyan';
+  // Settings
   const [chatModel, setChatModel] = useState('gpt-3.5-turbo');
-
   const [header, setHeader] = useState('');
   const [messages, setMessages] = useState('');
-
   const [temperature, setTemperature] = useState<number>(90);
   const [systemMessage, setSystemMessage] = useState(defaultSystemMessage);
-
   const [params, setParams] = useState({
     bucketName: AWS_BUCKET_NAME || 'prompt-engineers-dev',
     filePath: VECTORSTORE_FILE_PATH || 'formio.pkl',
@@ -31,7 +28,6 @@ export default function ChatProvider({ children }: IContextProvider) {
   const [wsUrl, setWsUrl] = useState(
     `${HOST}/chat-vector-db?api_key=${API_KEY}&bucket=${params.bucketName}&path=${params.filePath}`
   );
-  const [websckt, setWebsckt] = useState<WebSocket>();
 
   /**
    * Loads the messages into the UI
@@ -39,7 +35,6 @@ export default function ChatProvider({ children }: IContextProvider) {
    */
   function loadMessages(event: any) {
     const data = JSON.parse(event.data);
-    // console.log(data);
     if (data.sender === 'bot') {
       if (data.type === 'start') {
         setMessages((prevString) => `${prevString}\n 🤖 AI: `);
@@ -57,7 +52,7 @@ export default function ChatProvider({ children }: IContextProvider) {
     } else {
       setMessages(
         (prevString) =>
-          `${prevString}\n <span style="color: cyan;">👨‍💻 You: ${data.message}</span>`
+          `${prevString}\n <span style="color: ${newColor};">👨‍💻 You: ${data.message}</span>`
       );
     }
   }
@@ -68,9 +63,7 @@ export default function ChatProvider({ children }: IContextProvider) {
   }
 
   useEffect(() => {
-    const oldColor = (colorMode === 'light') ? 'cyan' : 'red';
-    const newColor = (colorMode === 'light') ? 'red' : 'cyan';
-    const switchColor = messages.replace(oldColor, newColor)
+    const switchColor = messages.replace(new RegExp(oldColor, 'g'), newColor)
     setMessages(switchColor)
   }, [colorMode])
 
