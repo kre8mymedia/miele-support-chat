@@ -3,12 +3,15 @@ import {
   Button,
   Flex,
   FormControl,
+  FormHelperText,
   IconButton,
   InputGroup,
   InputRightElement,
   Textarea,
   useColorMode,
+  Link as ChakraLink
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import { useState, useRef, useEffect, CSSProperties } from 'react';
 import { TbSend } from 'react-icons/tb';
 import ReactMarkdown from 'react-markdown';
@@ -212,6 +215,11 @@ export default function DocChat() {
               />
             </InputRightElement>
           </InputGroup>
+          <Box textAlign={'center'}>
+            <FormHelperText>
+              Form.io <Link href="https://help.form.io"><ChakraLink color={'blue.200'}>Docs</ChakraLink></Link> from Chat Context
+            </FormHelperText>
+          </Box>
         </FormControl>
       </Box>
     </Box>
