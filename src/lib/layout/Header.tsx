@@ -1,14 +1,12 @@
 import { Box, Flex, Link as ChakraLink } from '@chakra-ui/react';
-import ThemeToggle from './ThemeToggle';
-
 import Link from 'next/link';
+
+import ThemeToggle from './ThemeToggle';
 
 const Header = () => {
   return (
     <Flex as="header" width="full" align="center">
-      <ChakraLink>
-          DocumentGPT
-      </ChakraLink>
+      <ChakraLink>DocumentGPT</ChakraLink>
       <Box marginLeft="auto">
         <ThemeToggle />
       </Box>

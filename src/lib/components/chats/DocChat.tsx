@@ -9,7 +9,7 @@ import {
   InputRightElement,
   Textarea,
   useColorMode,
-  Link as ChakraLink
+  Link as ChakraLink,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useState, useRef, useEffect, CSSProperties } from 'react';
@@ -215,9 +215,13 @@ export default function DocChat() {
               />
             </InputRightElement>
           </InputGroup>
-          <Box textAlign={'center'}>
+          <Box textAlign="center">
             <FormHelperText>
-              Form.io <Link href="https://help.form.io"><ChakraLink color={'blue.200'}>Docs</ChakraLink></Link> from Chat Context
+              Form.io{' '}
+              <Link href="https://help.form.io">
+                <ChakraLink color="blue.200">Docs</ChakraLink>
+              </Link>{' '}
+              from Chat Context
             </FormHelperText>
           </Box>
         </FormControl>
