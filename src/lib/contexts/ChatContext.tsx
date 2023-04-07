@@ -43,7 +43,7 @@ export default function ChatProvider({ children }: IContextProvider) {
     const data = JSON.parse(event.data);
     if (data.sender === 'bot') {
       if (data.type === 'start') {
-        setMessages((prevString) => `${prevString}\n 🤖 AI: `);
+        setMessages((prevString) => `${prevString}\n <div>🤖 AI: `);
       } else if (data.type === 'stream') {
         setHeader('🤖 AI is typing...');
         setMessages((prevString) => `${prevString}${data.message}`);
@@ -51,14 +51,14 @@ export default function ChatProvider({ children }: IContextProvider) {
         setHeader(data.message);
       } else if (data.type === 'end') {
         setHeader('');
-        setMessages((prevString) => `${prevString}\n`);
+        setMessages((prevString) => `${prevString}\n</div>`);
       } else if (data.type === 'error') {
         setMessages((prevString) => `${prevString}\n${data.message}`);
       }
     } else {
       setMessages(
         (prevString) =>
-          `${prevString}\n <span style="color: ${newColor};">👨‍💻 You: ${data.message}</span>`
+          `${prevString}\n <p class="chat-space" style="color: ${newColor}; backgroundColor: #2C313D;">👨‍💻 You: ${data.message}</p>`
       );
     }
   }

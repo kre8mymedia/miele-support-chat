@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Text,
   Flex,
   FormControl,
   FormHelperText,
@@ -113,133 +114,136 @@ export default function DocChat() {
   }, [question]);
 
   return (
-    <Box m={1} mt={-4} height="100%">
-      <Box mb={1}>
-        {messages ? (
-          <div
-            ref={chatContainerRef}
-            onScroll={handleScroll}
-            style={{
-              height: '75vh',
-              overflowY: 'scroll',
-              maxWidth: '100vw',
-            }}
-          >
-            <div
-              style={{
-                background: colorMode === 'light' ? 'whitesmoke' : '#171923',
-                padding: '10px',
-                whiteSpace: 'pre-line',
-              }}
-            >
-              <ReactMarkdown
-                rehypePlugins={[rehypeRaw]}
-                components={{
-                  table: ({ node, ...props }) => (
-                    <table className="table-with-white-border" {...props} />
-                  ),
-                  ul: ({ node, ...props }) => (
-                    <ul className="margin-left-right" {...props} />
-                  ),
-                  ol: ({ node, ...props }) => (
-                    <ol className="margin-left-right" {...props} />
-                  ),
-                  code({ node, inline, className, children, ...props }) {
-                    const match = /language-(\w+)/.exec(className || '');
-                    return !inline && match ? (
-                      <SyntaxHighlighter
-                        children={String(children).replace(/\n$/, '')}
-                        language={match[1]}
-                        PreTag="section"
-                        {...props}
-                        style={colorMode === 'light' ? undefined : okaidia}
-                      />
-                    ) : (
-                      <code className={className} {...props}>
-                        {children}
-                      </code>
-                    );
-                  },
-                }}
-              >
-                {messages}
-              </ReactMarkdown>
-            </div>
-          </div>
-        ) : (
-          <div
-            ref={chatContainerRef}
-            style={{
-              height: '70vh',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'relative',
-            }}
-          >
-            <Box>
-              <SomeText />
-              <CTASection />
+    <Box height="100%">
+        <Box>
+            {messages ? (
+                <Box 
+                    ref={chatContainerRef} 
+                    onScroll={handleScroll} 
+                    style={{ 
+                        height: '80vh', 
+                        overflowY: 'scroll', 
+                        maxWidth: "98vw"
+                    }}
+                >
+                    <Box 
+                        style={{ 
+                            background: colorMode === 'light' ? 'whitesmoke' : '#171923', 
+                            // padding: "10px", 
+                            // whiteSpace: 'pre-line'
+                            fontSize: "14px"
+                        }}
+                    >
+                        <ReactMarkdown
+                            rehypePlugins={[rehypeRaw]}
+                            components={{
+                                div: ({ node, ...props }) => (
+                                  <div className='chat-space' {...props} />
+                                ),
+                                p: ({ node, ...props }) => (
+                                    <p style={{ padding: '15px' }} {...props} />
+                                ),
+                                table: ({ node, ...props }) => (
+                                    <table style={{ padding: '15px' }} className="table-with-white-border" {...props} />
+                                ),
+                                ul: ({ node, ...props }) => (
+                                    <ul className="margin-left-right" {...props} />
+                                ),
+                                ol: ({ node, ...props }) => (
+                                    <ol className="margin-left-right" {...props} />
+                                ),
+                                code({ node, inline, className, children, ...props }) {
+                                    const match = /language-(\w+)/.exec(className || "");
+                                    return !inline && match ? (
+                                        <Box p="10px">
+                                            <Box bg={'black'} mb={-2} p={1.5}>
+                                                <Text>{match[1]}</Text>
+                                            </Box>
+                                            <SyntaxHighlighter
+                                                children={String(children).replace(/\n$/, "")}
+                                                language={match[1]}
+                                                PreTag='section'
+                                                {...props}
+                                                style={colorMode === 'light' ? undefined : okaidia}
+                                            />
+                                        </Box>
+                                    ) : (
+                                        <code className={className} {...props}>
+                                            {children}
+                                        </code>
+                                    );
+                                },
+                            }}
+                        >
+                            {messages}
+                        </ReactMarkdown>
+                    </Box>
+                </Box>
+            ) : (
+                <Box 
+                    ref={chatContainerRef} 
+                    style={{
+                        height: '80vh',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        position: 'relative',
+                    }}
+                >
+                    <Box>
+                        <SomeText />
+                        <CTASection />
+                    </Box>
+                    <h3
+                        style={{
+                            position: 'absolute',
+                            bottom: 3,
+                            left: 0,
+                            right: 0,
+                            textAlign: 'center',
+                        }}
+                    >
+                        {connected ? 'What can I help you accomplish?' : '📡 Loading...'}
+                    </h3>
+                </Box>
+            )}
+        </Box>
+        <Box className='chat-space' background={'#171923'}>
+            <Box textAlign={'center'} height="25px">
+                {header}
             </Box>
-            <h3
-              style={{
-                position: 'absolute',
-                bottom: 3,
-                left: 0,
-                right: 0,
-                textAlign: 'center',
-              }}
-            >
-              {connected ? 'What can I help you accomplish?' : '📡 Loading...'}
-            </h3>
-          </div>
-        )}
-      </Box>
-      <Box mb={1}>
-        <Box textAlign="center">{header}</Box>
-        <FormControl isRequired>
-          <InputGroup>
-            <Textarea
-              pr="34px"
-              placeholder="Ask a question..."
-              ref={inputRef}
-              onChange={(e: any) => setQuestion(e.target.value)}
-              value={question || ''}
-            />
-            <InputRightElement
-              position="absolute"
-              right="-7px"
-              bottom="0px"
-              height="auto"
-              zIndex="2"
-            >
-              <IconButton
-                fontSize={19}
-                color={sendButtonColor}
-                variant="unstyled"
-                aria-label="Send message"
-                icon={<TbSend />}
-                type="submit"
-                onClick={(e) => sendMessage(e)}
-              />
-            </InputRightElement>
-          </InputGroup>
-          <Box textAlign="center">
-            <FormHelperText>
-              Form.io{' '}
-              <ChakraLink
-                color="blue.200"
-                href="https://help.form.io"
-                isExternal
-                rel="noopener noreferrer"
-              >
-                Docs
-              </ChakraLink>{' '}
-              from Chat Context
-            </FormHelperText>
-          </Box>
-        </FormControl>
-      </Box>
+            <FormControl isRequired>
+                <InputGroup>
+                    <Textarea
+                        // pr="34px"
+                        rows={2}
+                        placeholder="Ask a question..."
+                        ref={inputRef}
+                        onChange={(e: any) => setQuestion(e.target.value)}
+                        value={question || ''}
+                    />
+                    <InputRightElement
+                        position="absolute"
+                        // right="-7px"
+                        bottom="0px"
+                        height="auto"
+                        zIndex="2"
+                    >
+                        <IconButton
+                            isLoading={!connected}
+                            isDisabled={!connected}
+                            fontSize={19}
+                            color={sendButtonColor}
+                            variant="unstyled"
+                            aria-label="Send message"
+                            icon={<TbSend />}
+                            type="submit"
+                            onClick={(e) => sendMessage(e)}
+                        />
+                    </InputRightElement>
+                </InputGroup>
+            </FormControl>
+        </Box>
     </Box>
   );
 }

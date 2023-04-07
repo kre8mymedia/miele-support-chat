@@ -6,7 +6,7 @@ import ThemeToggle from './ThemeToggle';
 const Header = () => {
   return (
     <Flex as="header" width="full" align="center">
-      <ChakraLink>DocumentGPT</ChakraLink>
+      <ChakraLink ml={10}>DocumentGPT</ChakraLink>
       <Box marginLeft="auto">
         <ThemeToggle />
       </Box>
