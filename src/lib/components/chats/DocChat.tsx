@@ -19,7 +19,6 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { okaidia } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import rehypeRaw from 'rehype-raw';
-
 import { useChatContext } from '../../contexts/ChatContext';
 import CTASection from '../samples/CTASection';
 import SomeText from '../samples/SomeText';
@@ -40,6 +39,7 @@ export default function DocChat() {
     setConnected,
     wsUrl,
     setWsUrl,
+    setHeader,
     websckt,
     setWebsckt,
     disconnect,
@@ -113,6 +113,10 @@ export default function DocChat() {
     }
   }, [question]);
 
+
+  useEffect(() => {
+    setHeader(connected ? 'What can I help you accomplish?' : '📡 Loading...');
+  }, [connected])
   return (
     <Box height="100%">
       <Box>
@@ -198,7 +202,7 @@ export default function DocChat() {
               <SomeText />
               <CTASection />
             </Box>
-            <h3
+            {/* <Text
               style={{
                 position: 'absolute',
                 bottom: 3,
@@ -208,12 +212,12 @@ export default function DocChat() {
               }}
             >
               {connected ? 'What can I help you accomplish?' : '📡 Loading...'}
-            </h3>
+            </Text> */}
           </Box>
         )}
       </Box>
-      <Box className="chat-space" background="#171923">
-        <Box textAlign="center" height="25px">
+      <Box className="chat-input-space" background="#171923">
+        <Box textAlign="center" height="24px">
           {header}
         </Box>
         <FormControl isRequired>

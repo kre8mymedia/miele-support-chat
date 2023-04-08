@@ -46,8 +46,16 @@
   padding: 10px 20%;
 }
 
+.chat-input-space {
+  padding: 0px 20%;
+}
+
 @media (max-width: 800px) {
   .chat-space {
-    padding: 10px 10px 25px;
+    padding: 10px 2%;
+  }
+
+  .chat-input-space {
+    padding: 0px 10px 15px;
   }
 }

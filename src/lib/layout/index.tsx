@@ -15,7 +15,7 @@ const Layout = ({ children }: LayoutProps) => {
       maxWidth={{ base: '100%', lg: '100%' }}
       transition="0.5s ease-out"
     >
-      <Box margin="1">
+      <Box margin="">
         <Header />
         <Flex as="main">
           <Box flex="0 0 auto" width={{ base: '0%', lg: '15%' }}>
