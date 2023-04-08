@@ -124,7 +124,7 @@ export default function DocChat() {
           <Box
             ref={chatContainerRef}
             onScroll={handleScroll}
-            className={'main-window'}
+            className="main-window"
             style={{
               overflowY: 'scroll',
               maxWidth: '98vw',
@@ -190,7 +190,7 @@ export default function DocChat() {
         ) : (
           <Box
             ref={chatContainerRef}
-            className={'main-window'}
+            className="main-window"
             style={{
               display: 'flex',
               alignItems: 'center',
