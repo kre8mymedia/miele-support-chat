@@ -19,6 +19,7 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { okaidia } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import rehypeRaw from 'rehype-raw';
+
 import { useChatContext } from '../../contexts/ChatContext';
 import CTASection from '../samples/CTASection';
 import SomeText from '../samples/SomeText';
@@ -113,10 +114,9 @@ export default function DocChat() {
     }
   }, [question]);
 
-
   useEffect(() => {
     setHeader(connected ? 'What can I help you accomplish?' : '📡 Loading...');
-  }, [connected])
+  }, [connected]);
   return (
     <Box height="100%">
       <Box>
