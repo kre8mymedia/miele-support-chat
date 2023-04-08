@@ -35,7 +35,7 @@ import {
 
 export default function SettingsDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const firstField = useRef();
+  const firstField = useRef<HTMLTextAreaElement | null>(null);
   const {
     systemMessage,
     setSystemMessage,
@@ -91,7 +91,7 @@ export default function SettingsDrawer() {
                   <Textarea
                     pt={10}
                     id="desc"
-                    // ref={firstField}
+                    ref={firstField}
                     placeholder="System Message"
                     minH="300px"
                     value={systemMessage}
