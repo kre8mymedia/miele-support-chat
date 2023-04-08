@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Text,
   Flex,
   FormControl,
   FormHelperText,
@@ -18,7 +19,6 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { okaidia } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import rehypeRaw from 'rehype-raw';
-
 import { useChatContext } from '../../contexts/ChatContext';
 import CTASection from '../samples/CTASection';
 import SomeText from '../samples/SomeText';
@@ -39,6 +39,7 @@ export default function DocChat() {
     setConnected,
     wsUrl,
     setWsUrl,
+    setHeader,
     websckt,
     setWebsckt,
     disconnect,
@@ -112,31 +113,46 @@ export default function DocChat() {
     }
   }, [question]);
 
+
+  useEffect(() => {
+    setHeader(connected ? 'What can I help you accomplish?' : '📡 Loading...');
+  }, [connected])
   return (
-    <Box m={1} mt={-4} height="100%">
-      <Box mb={1}>
+    <Box height="100%">
+      <Box>
         {messages ? (
-          <div
+          <Box
             ref={chatContainerRef}
             onScroll={handleScroll}
             style={{
-              height: '75vh',
+              height: '80vh',
               overflowY: 'scroll',
-              maxWidth: '100vw',
+              maxWidth: '98vw',
             }}
           >
-            <div
+            <Box
               style={{
                 background: colorMode === 'light' ? 'whitesmoke' : '#171923',
-                padding: '10px',
-                whiteSpace: 'pre-line',
+                // padding: "10px",
+                // whiteSpace: 'pre-line'
+                fontSize: '14px',
               }}
             >
               <ReactMarkdown
                 rehypePlugins={[rehypeRaw]}
                 components={{
+                  div: ({ node, ...props }) => (
+                    <div className="chat-space" {...props} />
+                  ),
+                  p: ({ node, ...props }) => (
+                    <p style={{ padding: '15px' }} {...props} />
+                  ),
                   table: ({ node, ...props }) => (
-                    <table className="table-with-white-border" {...props} />
+                    <table
+                      style={{ padding: '15px' }}
+                      className="table-with-white-border"
+                      {...props}
+                    />
                   ),
                   ul: ({ node, ...props }) => (
                     <ul className="margin-left-right" {...props} />
@@ -147,13 +163,18 @@ export default function DocChat() {
                   code({ node, inline, className, children, ...props }) {
                     const match = /language-(\w+)/.exec(className || '');
                     return !inline && match ? (
-                      <SyntaxHighlighter
-                        children={String(children).replace(/\n$/, '')}
-                        language={match[1]}
-                        PreTag="section"
-                        {...props}
-                        style={colorMode === 'light' ? undefined : okaidia}
-                      />
+                      <Box p="10px">
+                        <Box bg="black" mb={-2} p={1.5}>
+                          <Text>{match[1]}</Text>
+                        </Box>
+                        <SyntaxHighlighter
+                          children={String(children).replace(/\n$/, '')}
+                          language={match[1]}
+                          PreTag="section"
+                          {...props}
+                          style={colorMode === 'light' ? undefined : okaidia}
+                        />
+                      </Box>
                     ) : (
                       <code className={className} {...props}>
                         {children}
@@ -164,13 +185,13 @@ export default function DocChat() {
               >
                 {messages}
               </ReactMarkdown>
-            </div>
-          </div>
+            </Box>
+          </Box>
         ) : (
-          <div
+          <Box
             ref={chatContainerRef}
             style={{
-              height: '70vh',
+              height: '80vh',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -181,7 +202,7 @@ export default function DocChat() {
               <SomeText />
               <CTASection />
             </Box>
-            <h3
+            {/* <Text
               style={{
                 position: 'absolute',
                 bottom: 3,
@@ -191,16 +212,19 @@ export default function DocChat() {
               }}
             >
               {connected ? 'What can I help you accomplish?' : '📡 Loading...'}
-            </h3>
-          </div>
+            </Text> */}
+          </Box>
         )}
       </Box>
-      <Box mb={1}>
-        <Box textAlign="center">{header}</Box>
+      <Box className="chat-input-space" background="#171923">
+        <Box textAlign="center" height="24px">
+          {header}
+        </Box>
         <FormControl isRequired>
           <InputGroup>
             <Textarea
-              pr="34px"
+              // pr="34px"
+              rows={2}
               placeholder="Ask a question..."
               ref={inputRef}
               onChange={(e: any) => setQuestion(e.target.value)}
@@ -208,12 +232,14 @@ export default function DocChat() {
             />
             <InputRightElement
               position="absolute"
-              right="-7px"
+              // right="-7px"
               bottom="0px"
               height="auto"
               zIndex="2"
             >
               <IconButton
+                isLoading={!connected}
+                isDisabled={!connected}
                 fontSize={19}
                 color={sendButtonColor}
                 variant="unstyled"
@@ -224,20 +250,6 @@ export default function DocChat() {
               />
             </InputRightElement>
           </InputGroup>
-          <Box textAlign="center">
-            <FormHelperText>
-              Form.io{' '}
-              <ChakraLink
-                color="blue.200"
-                href="https://help.form.io"
-                isExternal
-                rel="noopener noreferrer"
-              >
-                Docs
-              </ChakraLink>{' '}
-              from Chat Context
-            </FormHelperText>
-          </Box>
         </FormControl>
       </Box>
     </Box>

@@ -7,3 +7,11 @@ export const AWS_BUCKET_NAME =
   process.env.NEXT_PUBLIC_AWS_BUCKET_NAME || 'prompt-engineers-dev';
 export const VECTORSTORE_FILE_PATH =
   process.env.NEXT_PUBLIC_VECTORSTORE_FILE_PATH || 'formio.pkl';
+
+export enum ChatModels {
+  GPT_3_5 = 'gpt-3.5-turbo',
+  GPT_4 = 'gpt-4',
+}
+
+export const DEFAULT_CHAT_MODEL =
+  process.env.NEXT_PUBLIC_DEFAULT_CHAT_MODEL || ChatModels.GPT_3_5;
