@@ -4,6 +4,7 @@ import { useContext, createContext, useState, useEffect } from 'react';
 import {
   API_KEY,
   AWS_BUCKET_NAME,
+  DEFAULT_CHAT_MODEL,
   HOST,
   VECTORSTORE_FILE_PATH,
 } from '../config';
@@ -22,7 +23,7 @@ export default function ChatProvider({ children }: IContextProvider) {
   const oldColor = colorMode === 'light' ? 'cyan' : 'red';
   const newColor = colorMode === 'light' ? 'red' : 'cyan';
   // Settings
-  const [chatModel, setChatModel] = useState('gpt-3.5-turbo');
+  const [chatModel, setChatModel] = useState(DEFAULT_CHAT_MODEL);
   const [header, setHeader] = useState('');
   const [messages, setMessages] = useState('');
   const [temperature, setTemperature] = useState<number>(90);
