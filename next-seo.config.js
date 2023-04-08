@@ -2,12 +2,12 @@
 const defaultSEOConfig = {
   title: "Langchain GPT",
   titleTemplate: "%s | Langchain GPT - v0.0.134",
-  defaultTitle: "nextarter-chakra",
+  defaultTitle: "langchain-gpt",
   description: "Next.js + chakra-ui + TypeScript template",
-  canonical: "https://nextarter-chakra.sznm.dev",
+  canonical: "https://langchain.promptengineers.ai",
   openGraph: {
-    url: "https://nextarter-chakra.sznm.dev",
-    title: "nextarter-chakra",
+    url: "https://langchain.promptengineers.ai",
+    title: "langchain-gpt",
     description: "Next.js + chakra-ui + TypeScript template",
     images: [
       {
@@ -18,7 +18,7 @@ const defaultSEOConfig = {
     site_name: "nextarter-chakra",
   },
   twitter: {
-    handle: "@sozonome",
+    handle: "@JohnEggz",
     cardType: "summary_large_image",
   },
 };

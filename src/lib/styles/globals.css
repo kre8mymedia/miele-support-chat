@@ -50,12 +50,22 @@
   padding: 0px 20%;
 }
 
+.main-window {
+  height: 80vh;
+}
+
 @media (max-width: 800px) {
   .chat-space {
     padding: 10px 2%;
   }
 
   .chat-input-space {
-    padding: 0px 10px 15px;
+    padding: 0px 10px 20px;
+  }
+}
+
+@media (min-width: 1537px) {
+  .main-window {
+    height: 85vh;
   }
 }
