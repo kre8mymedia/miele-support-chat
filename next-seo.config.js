@@ -1,7 +1,7 @@
 /** @type {import('next-seo').DefaultSeoProps} */
 const defaultSEOConfig = {
   title: "Langchain GPT",
-  titleTemplate: "%s | Langchain GPT - v0.0.134",
+  titleTemplate: "%s | Langchain GPT - v0.0.139",
   defaultTitle: "langchain-gpt",
   description: "Next.js + chakra-ui + TypeScript template",
   canonical: "https://langchain.promptengineers.ai",

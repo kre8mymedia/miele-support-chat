@@ -10,7 +10,7 @@ const Header = () => {
         <ChakraLink ml={5} href="https://python.langchain.com/en/latest">
           Langchain GPT
         </ChakraLink>{' '}
-        - v0.0.134
+        - v0.0.139
         <Text fontSize="xs" ml={5} colorScheme="blue">
           <Link
             href="https://promptengineers.ai"
