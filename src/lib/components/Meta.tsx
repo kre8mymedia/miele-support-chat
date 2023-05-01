@@ -1,4 +1,4 @@
-const APP_NAME = 'Langchain GPT';
+const APP_NAME = 'Formio GPT';
 
 const Meta = () => {
   return (

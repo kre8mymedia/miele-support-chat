@@ -7,10 +7,10 @@ const Header = () => {
   return (
     <Flex as="header" width="full" align="center" py={2}>
       <Box>
-        <ChakraLink ml={5} href="https://python.langchain.com/en/latest">
-          Langchain GPT
+        <ChakraLink ml={5} href="https://help.form.io/">
+          Form.io GPT
         </ChakraLink>{' '}
-        - v0.0.139
+        - v8.0.1__5.0.1
         <Text fontSize="xs" ml={5} colorScheme="blue">
           <Link
             href="https://promptengineers.ai"
