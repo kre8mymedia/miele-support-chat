@@ -1,21 +1,25 @@
+import { APP_TITLE, APP_VERSION, CONTEXT_LINK } from './src/lib/config/index';
+
+const version = APP_VERSION ? `- ${APP_VERSION}` : null
+
 /** @type {import('next-seo').DefaultSeoProps} */
 const defaultSEOConfig = {
-  title: "Langchain GPT",
-  titleTemplate: "%s | Langchain GPT - v0.0.139",
-  defaultTitle: "langchain-gpt",
+  title: APP_TITLE,
+  titleTemplate: `%s | ${APP_TITLE} ${version}`,
+  defaultTitle: APP_TITLE.toLowerCase().replace(/ /g, '-'),
   description: "Next.js + chakra-ui + TypeScript template",
   canonical: "https://langchain.promptengineers.ai",
   openGraph: {
     url: "https://langchain.promptengineers.ai",
-    title: "langchain-gpt",
+    title: APP_TITLE.toLowerCase().replace(/ /g, '-'),
     description: "Next.js + chakra-ui + TypeScript template",
     images: [
       {
-        url: "https://og-image.sznm.dev/**nextarter-chakra**.sznm.dev.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fsznm.dev%2Favataaars.svg&widths=250",
-        alt: "nextarter-chakra.sznm.dev og-image",
+        url: "https://studio.youtube.com/channel/UCpGq31VRTZ9JzosUFA_HWzw/editing/images",
+        alt: "Prompt Engineers Chat Assist Starter",
       },
     ],
-    site_name: "nextarter-chakra",
+    site_name: "prompt-engineers-ai",
   },
   twitter: {
     handle: "@JohnEggz",
