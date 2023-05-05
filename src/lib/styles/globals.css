@@ -104,13 +104,25 @@
   }
 }
 
-@media (max-height: 650px) {
+@media (min-height: 450px) and (max-height: 550px) {
   .main-window {
-    height: 65vh;
+    height: 72vh;
   }
 }
 
-@media (max-height: 740px) {
+@media (min-height: 550px) and (max-height: 600px) {
+  .main-window {
+    height: 74vh;
+  }
+}
+
+@media (min-height: 600px) and (max-height: 674px) {
+  .main-window {
+    height: 76vh;
+  }
+}
+
+@media (min-height: 675px) and (max-height: 740px) {
   .main-window {
     height: 78vh;
   }
