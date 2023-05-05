@@ -64,6 +64,20 @@ export default function ChatProvider({ children }: IContextProvider) {
     }
   }
 
+  useEffect(() => {
+    const prevModelExists = sessionStorage.getItem('model');
+    if (prevModelExists) {
+        setChatModel(prevModelExists)
+    }
+  }, [chatModel])
+
+  useEffect(() => {
+    const prevMessageExists = sessionStorage.getItem('systemMessage');
+    if (prevMessageExists) {
+      setSystemMessage(prevMessageExists)
+    }
+  }, [systemMessage])
+
   function disconnect() {
     setConnected(false);
     websckt?.close();
