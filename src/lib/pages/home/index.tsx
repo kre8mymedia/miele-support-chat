@@ -3,9 +3,6 @@ import { NextSeo } from 'next-seo';
 
 import DocChat from '~/lib/components/chats/DocChat';
 import SettingsDrawer from '~/lib/components/drawers/SettingsDrawer';
-import CTASection from '~/lib/components/samples/CTASection';
-import SomeImage from '~/lib/components/samples/SomeImage';
-import SomeText from '~/lib/components/samples/SomeText';
 
 const Home = () => {
   return (
@@ -17,7 +14,6 @@ const Home = () => {
         }}
         position="relative"
       >
-        <Box>{/* <SettingsDrawer /> */}</Box>
         <Box
           display="flex"
           justifyContent="end"

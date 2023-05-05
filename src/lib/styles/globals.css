@@ -52,6 +52,27 @@
 
 .main-window {
   height: 80vh;
+  overflow-y: scroll;
+  max-width: 98vw;
+}
+
+.server-message {
+  background-color: rgb(23, 25, 35);
+  padding: 5px;
+  /* margin: 10px; */
+  padding: 0px 20%;
+  /* border-radius: 10px; */
+  font-size: 14px;
+}
+.client-message {
+  background-color: rgb(44, 49, 61);
+  padding: 5px;
+  /* margin: 10px; */
+  padding: 0px 20%;
+  /* border-radius: 5px; */
+  font-size: 14px;
+  /* color: cyan; */
+  font-weight: 600;
 }
 
 @media (max-width: 500px) {
@@ -68,10 +89,48 @@
   .chat-input-space {
     padding: 0px 10px 20px;
   }
+
+  .server-message {
+    padding: 10px 2%;
+  }
+
+  .client-message {
+    padding: 10px 2%;
+  }
 }
 
 @media (min-width: 1537px) {
   .main-window {
     height: 85vh;
+  }
+}
+
+@media (min-height: 450px) and (max-height: 550px) {
+  .main-window {
+    height: 72vh;
+  }
+}
+
+@media (min-height: 550px) and (max-height: 600px) {
+  .main-window {
+    height: 74vh;
+  }
+}
+
+@media (min-height: 600px) and (max-height: 674px) {
+  .main-window {
+    height: 76vh;
+  }
+}
+
+@media (min-height: 675px) and (max-height: 740px) {
+  .main-window {
+    height: 78vh;
+  }
+}
+
+@media (min-height: 950px) {
+  .main-window {
+    height: 86vh;
   }
 }

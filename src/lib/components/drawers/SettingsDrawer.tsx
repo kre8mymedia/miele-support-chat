@@ -42,6 +42,7 @@ export default function SettingsDrawer() {
     temperature,
     setTemperature,
     setChatModel,
+    chatModel,
   } = useChatContext();
 
   const handleSliderChange = (e: { target: { value: string } }) => {
@@ -50,6 +51,7 @@ export default function SettingsDrawer() {
 
   const handleModelChange = (e: { target: { value: any } }) => {
     setChatModel(e.target.value);
+    sessionStorage.setItem('model', e.target.value);
   };
 
   return (
@@ -79,7 +81,10 @@ export default function SettingsDrawer() {
                         // variant="unstyled"
                         right="10px"
                         top="-5px"
-                        onClick={() => setSystemMessage(defaultSystemMessage)}
+                        onClick={() => {
+                          sessionStorage.removeItem('systemMessage');
+                          setSystemMessage(defaultSystemMessage);
+                        }}
                       >
                         <Icon fontSize="20px" as={RxReset} />
                       </Button>
@@ -94,8 +99,12 @@ export default function SettingsDrawer() {
                     ref={firstField}
                     placeholder="System Message"
                     minH="300px"
+                    fontSize="14px"
                     value={systemMessage}
-                    onChange={(e) => setSystemMessage(e.target.value)}
+                    onChange={(e) => {
+                      setSystemMessage(e.target.value);
+                      sessionStorage.setItem('systemMessage', e.target.value);
+                    }}
                   />
                 </FormControl>
 
@@ -145,12 +154,13 @@ export default function SettingsDrawer() {
                     variant="outline"
                     size="sm"
                     onChange={handleModelChange}
+                    value={chatModel}
                   >
                     <option value={ChatModels.GPT_3_5}>gpt-3.5-turbo</option>
                     {/* <option value='gpt-3.5-turbo-0301'>gpt-3.5-turbo-0301</option> */}
                     <option value={ChatModels.GPT_4}>gpt-4</option>
                     {/* <option value='gpt-4-0314'>gpt-4-0314</option> */}
-                    {/* <option value={OpenAiChatModels.GPT_4_32K}>gpt-4-32k</option> */}
+                    {/* <option value={ChatModels.GPT_4_32K}>gpt-4-32k</option> */}
                     {/* <option value='gpt-4-32k-0314'>gpt-4-32k-0314</option> */}
                   </Select>
                 </FormControl>

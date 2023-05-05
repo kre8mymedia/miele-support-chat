@@ -15,3 +15,9 @@ export enum ChatModels {
 
 export const DEFAULT_CHAT_MODEL =
   process.env.NEXT_PUBLIC_DEFAULT_CHAT_MODEL || ChatModels.GPT_3_5;
+
+export const APP_TITLE = process.env.NEXT_PUBLIC_APP_TITLE || 'Langchain GPT';
+export const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION || '';
+export const CONTEXT_LINK =
+  process.env.NEXT_PUBLIC_CONTEXT_LINK ||
+  'https://python.langchain.com/en/latest';
