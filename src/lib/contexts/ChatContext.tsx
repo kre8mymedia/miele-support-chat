@@ -73,7 +73,7 @@ export default function ChatProvider({ children }: IContextProvider) {
     }
   }
 
-  const addMessage = (content: string, className: string) => {
+  const addMessage = (content: any, className: string) => {
     setMessages((prevMessages) => [
       ...prevMessages,
       { content, className },
@@ -83,7 +83,13 @@ export default function ChatProvider({ children }: IContextProvider) {
   const updateLastMessage = (message: string) => {
     setMessages((prevMessages) => {
       const updatedMessages = [...prevMessages];
-      updatedMessages[updatedMessages.length - 1].content += message === '\n' ? '\n' : message;
+      const lastMessageIndex = updatedMessages.length - 1;
+      const lastMessageContent = updatedMessages[lastMessageIndex].content;
+  
+      if (!lastMessageContent.endsWith(message)) {
+        updatedMessages[lastMessageIndex].content += message === '\n' ? '\n' : message;
+      }
+  
       return updatedMessages;
     });
   };

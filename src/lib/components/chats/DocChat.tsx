@@ -11,9 +11,8 @@ import {
   Textarea,
   useColorMode,
   useColorModeValue,
-  Link as ChakraLink,
+  Link
 } from '@chakra-ui/react';
-import Link from 'next/link';
 import { useState, useRef, useEffect, CSSProperties } from 'react';
 import { TbSend } from 'react-icons/tb';
 import ReactMarkdown from 'react-markdown';
@@ -29,29 +28,26 @@ export default function DocChat() {
   const { colorMode } = useColorMode();
   const chatContainerRef: React.RefObject<HTMLDivElement> = useRef(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const messagesRef = useRef(null);
+  
   const {
     temperature,
     systemMessage,
-    params,
-    setParams,
     header,
     loadMessages,
     messages,
     connected,
     setConnected,
     wsUrl,
-    setWsUrl,
     setHeader,
     websckt,
     setWebsckt,
-    disconnect,
     chatModel,
   } = useChatContext();
   const [question, setQuestion] = useState('');
   const [shouldScroll, setShouldScroll] = useState(true);
   const [sendButtonColor, setSendButtonColor] = useState('gray');
   const newColor = colorMode === 'light' ? 'red' : 'cyan';
+  const messagesRef = useRef(null);
 
   const handleScroll = () => {
     const chatContainer = chatContainerRef.current;
@@ -133,7 +129,7 @@ export default function DocChat() {
             onScroll={handleScroll}
             className="main-window"
           >
-            <Box ref={messagesRef}>
+            <div ref={messagesRef}>
               {messages.map((message: any, index: number) => (
                 <Box
                   key={index} 
@@ -143,13 +139,14 @@ export default function DocChat() {
                     // padding: "10px",
                     // whiteSpace: 'pre-line'
                     fontSize: '14px',
+                    position: 'relative'
                   }}
                 >
                   <ReactMarkdown
                     rehypePlugins={[rehypeRaw]}
                     components={{
                       div: ({ node, ...props }) => (
-                        <div className="chat-space" {...props} />
+                        <div {...props} />
                       ),
                       p: ({ node, ...props }) => (
                         <p style={{ padding: '15px' }} {...props} />
@@ -194,7 +191,7 @@ export default function DocChat() {
                   </ReactMarkdown>
                 </Box>
               ))}
-            </Box>
+            </div>
           </Box>
         ) : (
           <Box
