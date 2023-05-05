@@ -1,5 +1,6 @@
 import { Box, Flex, Text, Link as ChakraLink } from '@chakra-ui/react';
 import Link from 'next/link';
+
 import { APP_TITLE, APP_VERSION, CONTEXT_LINK } from '../config';
 
 import ThemeToggle from './ThemeToggle';
@@ -11,7 +12,7 @@ const Header = () => {
         <ChakraLink ml={5} href={CONTEXT_LINK}>
           {APP_TITLE}
         </ChakraLink>{' '}
-          {APP_VERSION ? `- ${APP_VERSION}` : null}
+        {APP_VERSION ? `- ${APP_VERSION}` : null}
         <Text fontSize="xs" ml={5} colorScheme="blue">
           <Link
             href="https://promptengineers.ai"

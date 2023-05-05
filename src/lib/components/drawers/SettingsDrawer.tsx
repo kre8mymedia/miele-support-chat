@@ -82,8 +82,8 @@ export default function SettingsDrawer() {
                         right="10px"
                         top="-5px"
                         onClick={() => {
-                          sessionStorage.removeItem('systemMessage')
-                          setSystemMessage(defaultSystemMessage)
+                          sessionStorage.removeItem('systemMessage');
+                          setSystemMessage(defaultSystemMessage);
                         }}
                       >
                         <Icon fontSize="20px" as={RxReset} />
@@ -99,7 +99,7 @@ export default function SettingsDrawer() {
                     ref={firstField}
                     placeholder="System Message"
                     minH="300px"
-                    fontSize={'14px'}
+                    fontSize="14px"
                     value={systemMessage}
                     onChange={(e) => {
                       setSystemMessage(e.target.value);

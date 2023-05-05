@@ -11,7 +11,7 @@ import {
   Textarea,
   useColorMode,
   useColorModeValue,
-  Link
+  Link,
 } from '@chakra-ui/react';
 import { useState, useRef, useEffect, CSSProperties } from 'react';
 import { TbSend } from 'react-icons/tb';
@@ -28,7 +28,7 @@ export default function DocChat() {
   const { colorMode } = useColorMode();
   const chatContainerRef: React.RefObject<HTMLDivElement> = useRef(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  
+
   const {
     temperature,
     systemMessage,
@@ -118,7 +118,7 @@ export default function DocChat() {
 
   useEffect(() => {
     inputRef.current?.focus();
-  }, [])
+  }, []);
 
   return (
     <Box height="100%">
@@ -132,27 +132,29 @@ export default function DocChat() {
             <div ref={messagesRef}>
               {messages.map((message: any, index: number) => (
                 <Box
-                  key={index} 
+                  key={index}
                   className={message.className}
                   style={{
                     // background: colorMode === 'light' ? 'whitesmoke' : '#171923',
                     // padding: "10px",
                     // whiteSpace: 'pre-line'
                     fontSize: '14px',
-                    position: 'relative'
+                    position: 'relative',
                   }}
                 >
                   {message.className === 'client-message' ? (
-                    <Text variant={'h3'} fontSize={'18px'} color={'cyan.400'} pt={2}>👨‍💻 You:</Text>
+                    <Text variant="h3" fontSize="18px" color="cyan.400" pt={2}>
+                      👨‍💻 You:
+                    </Text>
                   ) : (
-                    <Text variant={'h3'} fontSize={'18px'} color={'gray.400'} pt={2}>🤖 Assistant:</Text>
+                    <Text variant="h3" fontSize="18px" color="gray.400" pt={2}>
+                      🤖 Assistant:
+                    </Text>
                   )}
                   <ReactMarkdown
                     rehypePlugins={[rehypeRaw]}
                     components={{
-                      div: ({ node, ...props }) => (
-                        <div {...props} />
-                      ),
+                      div: ({ node, ...props }) => <div {...props} />,
                       p: ({ node, ...props }) => (
                         <p style={{ padding: '15px' }} {...props} />
                       ),
@@ -181,7 +183,9 @@ export default function DocChat() {
                               language={match[1]}
                               PreTag="section"
                               {...props}
-                              style={colorMode === 'light' ? undefined : okaidia}
+                              style={
+                                colorMode === 'light' ? undefined : okaidia
+                              }
                             />
                           </Box>
                         ) : (
@@ -216,7 +220,10 @@ export default function DocChat() {
           </Box>
         )}
       </Box>
-      <Box className="chat-input-space" bg={useColorModeValue('white-smoke', '#1A202C')}>
+      <Box
+        className="chat-input-space"
+        bg={useColorModeValue('white-smoke', '#1A202C')}
+      >
         <Box textAlign="center" height="24px">
           {header}
         </Box>

@@ -9,6 +9,7 @@ import {
   VECTORSTORE_FILE_PATH,
 } from '../config';
 import type { IContextProvider } from '../interfaces/Provider';
+
 import { useAppContext } from './AppContext';
 
 type Message = {
@@ -46,6 +47,25 @@ export default function ChatProvider({ children }: IContextProvider) {
     `${HOST}/chat-vector-db?api_key=${API_KEY}&bucket=${params.bucketName}&path=${params.filePath}`
   );
 
+  const addMessage = (content: any, className: string) => {
+    setMessages((prevMessages) => [...prevMessages, { content, className }]);
+  };
+
+  const updateLastMessage = (message: string) => {
+    setMessages((prevMessages) => {
+      const updatedMessages = [...prevMessages];
+      const lastMessageIndex = updatedMessages.length - 1;
+      const lastMessageContent = updatedMessages[lastMessageIndex].content;
+
+      if (!lastMessageContent.endsWith(message)) {
+        updatedMessages[lastMessageIndex].content +=
+          message === '\n' ? '\n' : message;
+      }
+
+      return updatedMessages;
+    });
+  };
+
   /**
    * Loads the messages into the UI
    * @param event
@@ -57,7 +77,7 @@ export default function ChatProvider({ children }: IContextProvider) {
       if (data.type === 'start') {
         setHeader('Computing answer...');
         addMessage('', 'server-message');
-      } else if (data.type === 'stream') {            
+      } else if (data.type === 'stream') {
         setHeader('Chatbot is typing...');
         updateLastMessage(data.message);
       } else if (data.type === 'info') {
@@ -69,44 +89,23 @@ export default function ChatProvider({ children }: IContextProvider) {
         updateLastMessage(data.message);
       }
     } else {
-        addMessage(data.message, 'client-message');
+      addMessage(data.message, 'client-message');
     }
   }
-
-  const addMessage = (content: any, className: string) => {
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { content, className },
-    ]);
-  };
-
-  const updateLastMessage = (message: string) => {
-    setMessages((prevMessages) => {
-      const updatedMessages = [...prevMessages];
-      const lastMessageIndex = updatedMessages.length - 1;
-      const lastMessageContent = updatedMessages[lastMessageIndex].content;
-  
-      if (!lastMessageContent.endsWith(message)) {
-        updatedMessages[lastMessageIndex].content += message === '\n' ? '\n' : message;
-      }
-  
-      return updatedMessages;
-    });
-  };
 
   useEffect(() => {
     const prevModelExists = sessionStorage.getItem('model');
     if (prevModelExists) {
-        setChatModel(prevModelExists)
+      setChatModel(prevModelExists);
     }
-  }, [chatModel])
+  }, [chatModel]);
 
   useEffect(() => {
     const prevMessageExists = sessionStorage.getItem('systemMessage');
     if (prevMessageExists) {
-      setSystemMessage(prevMessageExists)
+      setSystemMessage(prevMessageExists);
     }
-  }, [systemMessage])
+  }, [systemMessage]);
 
   function disconnect() {
     setConnected(false);
