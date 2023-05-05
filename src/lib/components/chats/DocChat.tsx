@@ -142,6 +142,11 @@ export default function DocChat() {
                     position: 'relative'
                   }}
                 >
+                  {message.className === 'client-message' ? (
+                    <Text variant={'h3'} fontSize={'18px'} color={'cyan.400'} pt={2}>👨‍💻 You:</Text>
+                  ) : (
+                    <Text variant={'h3'} fontSize={'18px'} color={'gray.400'} pt={2}>🤖 Assistant:</Text>
+                  )}
                   <ReactMarkdown
                     rehypePlugins={[rehypeRaw]}
                     components={{

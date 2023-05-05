@@ -71,7 +71,8 @@
   padding: 0px 20%;
   /* border-radius: 5px; */
   font-size: 14px;
-  color: cyan;
+  /* color: cyan; */
+  font-weight: 600;
 }
 
 @media (max-width: 500px) {

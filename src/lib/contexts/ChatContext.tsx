@@ -56,7 +56,7 @@ export default function ChatProvider({ children }: IContextProvider) {
     if (data.sender === 'bot') {
       if (data.type === 'start') {
         setHeader('Computing answer...');
-        addMessage('🤖 AI: ', 'server-message');
+        addMessage('', 'server-message');
       } else if (data.type === 'stream') {            
         setHeader('Chatbot is typing...');
         updateLastMessage(data.message);
@@ -69,7 +69,7 @@ export default function ChatProvider({ children }: IContextProvider) {
         updateLastMessage(data.message);
       }
     } else {
-        addMessage(`👨‍💻 You: ${data.message}`, 'client-message');
+        addMessage(data.message, 'client-message');
     }
   }
 
