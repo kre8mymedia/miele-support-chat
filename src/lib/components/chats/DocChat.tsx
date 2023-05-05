@@ -10,6 +10,7 @@ import {
   InputRightElement,
   Textarea,
   useColorMode,
+  useColorModeValue,
   Link as ChakraLink,
 } from '@chakra-ui/react';
 import Link from 'next/link';
@@ -28,6 +29,7 @@ export default function DocChat() {
   const { colorMode } = useColorMode();
   const chatContainerRef: React.RefObject<HTMLDivElement> = useRef(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const messagesRef = useRef(null);
   const {
     temperature,
     systemMessage,
@@ -117,74 +119,81 @@ export default function DocChat() {
   useEffect(() => {
     setHeader(connected ? 'What can I help you accomplish?' : '📡 Loading...');
   }, [connected]);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [])
+
   return (
     <Box height="100%">
       <Box>
-        {messages ? (
+        {messages.length > 0 ? (
           <Box
             ref={chatContainerRef}
             onScroll={handleScroll}
             className="main-window"
-            style={{
-              overflowY: 'scroll',
-              maxWidth: '98vw',
-            }}
           >
-            <Box
-              style={{
-                background: colorMode === 'light' ? 'whitesmoke' : '#171923',
-                // padding: "10px",
-                // whiteSpace: 'pre-line'
-                fontSize: '14px',
-              }}
-            >
-              <ReactMarkdown
-                rehypePlugins={[rehypeRaw]}
-                components={{
-                  div: ({ node, ...props }) => (
-                    <div className="chat-space" {...props} />
-                  ),
-                  p: ({ node, ...props }) => (
-                    <p style={{ padding: '15px' }} {...props} />
-                  ),
-                  table: ({ node, ...props }) => (
-                    <table
-                      style={{ padding: '15px' }}
-                      className="table-with-white-border"
-                      {...props}
-                    />
-                  ),
-                  ul: ({ node, ...props }) => (
-                    <ul className="margin-left-right" {...props} />
-                  ),
-                  ol: ({ node, ...props }) => (
-                    <ol className="margin-left-right" {...props} />
-                  ),
-                  code({ node, inline, className, children, ...props }) {
-                    const match = /language-(\w+)/.exec(className || '');
-                    return !inline && match ? (
-                      <Box p="10px">
-                        <Box bg="black" mb={-2} p={1.5}>
-                          <Text>{match[1]}</Text>
-                        </Box>
-                        <SyntaxHighlighter
-                          children={String(children).replace(/\n$/, '')}
-                          language={match[1]}
-                          PreTag="section"
+            <Box ref={messagesRef}>
+              {messages.map((message: any, index: number) => (
+                <Box
+                  key={index} 
+                  className={message.className}
+                  style={{
+                    // background: colorMode === 'light' ? 'whitesmoke' : '#171923',
+                    // padding: "10px",
+                    // whiteSpace: 'pre-line'
+                    fontSize: '14px',
+                  }}
+                >
+                  <ReactMarkdown
+                    rehypePlugins={[rehypeRaw]}
+                    components={{
+                      div: ({ node, ...props }) => (
+                        <div className="chat-space" {...props} />
+                      ),
+                      p: ({ node, ...props }) => (
+                        <p style={{ padding: '15px' }} {...props} />
+                      ),
+                      table: ({ node, ...props }) => (
+                        <table
+                          style={{ padding: '15px' }}
+                          className="table-with-white-border"
                           {...props}
-                          style={colorMode === 'light' ? undefined : okaidia}
                         />
-                      </Box>
-                    ) : (
-                      <code className={className} {...props}>
-                        {children}
-                      </code>
-                    );
-                  },
-                }}
-              >
-                {messages}
-              </ReactMarkdown>
+                      ),
+                      ul: ({ node, ...props }) => (
+                        <ul className="margin-left-right" {...props} />
+                      ),
+                      ol: ({ node, ...props }) => (
+                        <ol className="margin-left-right" {...props} />
+                      ),
+                      code({ node, inline, className, children, ...props }) {
+                        const match = /language-(\w+)/.exec(className || '');
+                        return !inline && match ? (
+                          <Box p="10px">
+                            <Box bg="black" mb={-2} p={1.5}>
+                              <Text>{match[1]}</Text>
+                            </Box>
+                            <SyntaxHighlighter
+                              children={String(children).replace(/\n$/, '')}
+                              language={match[1]}
+                              PreTag="section"
+                              {...props}
+                              style={colorMode === 'light' ? undefined : okaidia}
+                            />
+                          </Box>
+                        ) : (
+                          <code className={className} {...props}>
+                            {children}
+                          </code>
+                        );
+                      },
+                    }}
+                  >
+                    {message.content}
+                  </ReactMarkdown>
+                </Box>
+              ))}
             </Box>
           </Box>
         ) : (
@@ -202,21 +211,10 @@ export default function DocChat() {
               <SomeText />
               <CTASection />
             </Box>
-            {/* <Text
-              style={{
-                position: 'absolute',
-                bottom: 3,
-                left: 0,
-                right: 0,
-                textAlign: 'center',
-              }}
-            >
-              {connected ? 'What can I help you accomplish?' : '📡 Loading...'}
-            </Text> */}
           </Box>
         )}
       </Box>
-      <Box className="chat-input-space" background="#171923">
+      <Box className="chat-input-space" bg={useColorModeValue('white-smoke', '#1A202C')}>
         <Box textAlign="center" height="24px">
           {header}
         </Box>

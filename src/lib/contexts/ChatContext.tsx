@@ -9,13 +9,23 @@ import {
   VECTORSTORE_FILE_PATH,
 } from '../config';
 import type { IContextProvider } from '../interfaces/Provider';
-
 import { useAppContext } from './AppContext';
 
+type Message = {
+  content: string;
+  className: string;
+};
+
+export const defaultSystemMessage = `PERSONA:
+Imagine you super intelligent AI assistant for the context.
+
+INSTRUCTION:
+Use the following pieces of context to answer the question at the end. If you don't know the answer or if the required code is not present, just say that you don't know, and don't try to make up an answer. 
+
+OUTPUT FORMAT RULES:
+Code snippets should be wrapped in triple backticks, along with the language name for proper formatting, if applicable.`;
+
 export const ChatContext = createContext({});
-
-export const defaultSystemMessage = `Use the following pieces of context to answer the question at the end. If you don't know the answer or if the required code is not present, just say that you don't know, and don't try to make up an answer. Please provide a code snippet wrapped in triple backticks, along with the language name for proper formatting, if applicable.`;
-
 export default function ChatProvider({ children }: IContextProvider) {
   const { colorMode } = useColorMode();
   const [websckt, setWebsckt] = useState<WebSocket>();
@@ -25,7 +35,7 @@ export default function ChatProvider({ children }: IContextProvider) {
   // Settings
   const [chatModel, setChatModel] = useState(DEFAULT_CHAT_MODEL);
   const [header, setHeader] = useState('');
-  const [messages, setMessages] = useState('');
+  const [messages, setMessages] = useState<Message[]>([]);
   const [temperature, setTemperature] = useState<number>(90);
   const [systemMessage, setSystemMessage] = useState(defaultSystemMessage);
   const [params, setParams] = useState({
@@ -42,27 +52,41 @@ export default function ChatProvider({ children }: IContextProvider) {
    */
   function loadMessages(event: any) {
     const data = JSON.parse(event.data);
+    // console.log(data);
     if (data.sender === 'bot') {
       if (data.type === 'start') {
-        setMessages((prevString) => `${prevString}\n <div>🤖 AI: `);
-      } else if (data.type === 'stream') {
-        setHeader('🤖 AI is typing...');
-        setMessages((prevString) => `${prevString}${data.message}`);
+        setHeader('Computing answer...');
+        addMessage('🤖 AI: ', 'server-message');
+      } else if (data.type === 'stream') {            
+        setHeader('Chatbot is typing...');
+        updateLastMessage(data.message);
       } else if (data.type === 'info') {
         setHeader(data.message);
       } else if (data.type === 'end') {
-        setHeader('');
-        setMessages((prevString) => `${prevString}\n</div>`);
+        setHeader('Ask a question');
       } else if (data.type === 'error') {
-        setMessages((prevString) => `${prevString}\n${data.message}`);
+        setHeader('Ask a question');
+        updateLastMessage(data.message);
       }
     } else {
-      setMessages(
-        (prevString) =>
-          `${prevString}\n <p class="chat-space" style="color: ${newColor}; backgroundColor: #2C313D;">👨‍💻 You: ${data.message}</p>`
-      );
+        addMessage(`👨‍💻 You: ${data.message}`, 'client-message');
     }
   }
+
+  const addMessage = (content: string, className: string) => {
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { content, className },
+    ]);
+  };
+
+  const updateLastMessage = (message: string) => {
+    setMessages((prevMessages) => {
+      const updatedMessages = [...prevMessages];
+      updatedMessages[updatedMessages.length - 1].content += message === '\n' ? '\n' : message;
+      return updatedMessages;
+    });
+  };
 
   useEffect(() => {
     const prevModelExists = sessionStorage.getItem('model');
@@ -83,10 +107,10 @@ export default function ChatProvider({ children }: IContextProvider) {
     websckt?.close();
   }
 
-  useEffect(() => {
-    const switchColor = messages.replace(new RegExp(oldColor, 'g'), newColor);
-    setMessages(switchColor);
-  }, [colorMode]);
+  // useEffect(() => {
+  //   const switchColor = messages.replace(new RegExp(oldColor, 'g'), newColor);
+  //   setMessages(switchColor);
+  // }, [colorMode]);
 
   return (
     <ChatContext.Provider

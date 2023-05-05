@@ -99,6 +99,7 @@ export default function SettingsDrawer() {
                     ref={firstField}
                     placeholder="System Message"
                     minH="300px"
+                    fontSize={'14px'}
                     value={systemMessage}
                     onChange={(e) => {
                       setSystemMessage(e.target.value);
