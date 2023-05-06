@@ -98,7 +98,7 @@ export default function SettingsDrawer() {
                     id="desc"
                     ref={firstField}
                     placeholder="System Message"
-                    minH="300px"
+                    minH="400px"
                     fontSize="14px"
                     value={systemMessage}
                     onChange={(e) => {

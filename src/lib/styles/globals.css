@@ -51,13 +51,13 @@
 }
 
 .main-window {
-  height: 80vh;
+  height: 87vh;
   overflow-y: scroll;
-  max-width: 98vw;
+  max-width: 99vw;
 }
 
 .server-message {
-  background-color: rgb(23, 25, 35);
+  background-color: #1A202C;
   padding: 5px;
   /* margin: 10px; */
   padding: 0px 20%;

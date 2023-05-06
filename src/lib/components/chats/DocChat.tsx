@@ -189,7 +189,7 @@ export default function DocChat() {
                             />
                           </Box>
                         ) : (
-                          <code className={className} {...props}>
+                          <code className={className} {...props} style={{ color: '#DF3079' }}>
                             {children}
                           </code>
                         );
