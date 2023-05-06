@@ -135,9 +135,14 @@ export default function DocChat() {
                   key={index}
                   className={message.className}
                   style={{
-                    background: message.className === 'client-message' 
-                                                      ? (colorMode === 'light' ? '#EAECEF' : 'rgb(44, 49, 61)')
-                                                      : (colorMode === 'light' ? 'white' : '#1A202C'),
+                    background:
+                      message.className === 'client-message'
+                        ? colorMode === 'light'
+                          ? '#EAECEF'
+                          : 'rgb(44, 49, 61)'
+                        : colorMode === 'light'
+                        ? 'white'
+                        : '#1A202C',
                     // background: colorMode === 'light' ? 'whitesmoke' : '#171923',
                     // padding: "10px",
                     // whiteSpace: 'pre-line'
@@ -178,7 +183,7 @@ export default function DocChat() {
                         const match = /language-(\w+)/.exec(className || '');
                         return !inline && match ? (
                           <Box p="10px">
-                            <Box bg="black" color={'white'} mb={-2} p={1.5}>
+                            <Box bg="black" color="white" mb={-2} p={1.5}>
                               <Text>{match[1]}</Text>
                             </Box>
                             <SyntaxHighlighter
@@ -192,7 +197,11 @@ export default function DocChat() {
                             />
                           </Box>
                         ) : (
-                          <code className={className} {...props} style={{ color: '#DF3079' }}>
+                          <code
+                            className={className}
+                            {...props}
+                            style={{ color: '#DF3079' }}
+                          >
                             {children}
                           </code>
                         );

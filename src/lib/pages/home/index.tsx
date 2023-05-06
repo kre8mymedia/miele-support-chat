@@ -1,13 +1,19 @@
-import { Box, Grid, useMediaQuery, Button, Icon, Tooltip } from '@chakra-ui/react';
+import {
+  Box,
+  Grid,
+  useMediaQuery,
+  Button,
+  Icon,
+  Tooltip,
+} from '@chakra-ui/react';
 import { NextSeo } from 'next-seo';
+import { BsGithub } from 'react-icons/bs';
+import { IoMdAdd } from 'react-icons/io';
 
 import DocChat from '~/lib/components/chats/DocChat';
 import SettingsDrawer from '~/lib/components/drawers/SettingsDrawer';
-import ThemeToggle from '~/lib/layout/ThemeToggle';
-
-import { BsGithub } from 'react-icons/bs';
-import { IoMdAdd } from 'react-icons/io'
 import { useChatContext } from '~/lib/contexts/ChatContext';
+import ThemeToggle from '~/lib/layout/ThemeToggle';
 
 const repoLink = 'https://github.com/kre8mymedia/Prompt-Engineers-Chat-Starter';
 
@@ -25,26 +31,26 @@ const Home = () => {
         position="relative"
       >
         {isLargerThanLG && (
-          <Box 
+          <Box
             display="flex"
             justifyContent="end"
             alignItems="end"
             pr={2}
             position="absolute"
-            right={'98px'}
+            right="98px"
             top={2}
             zIndex={2}
           >
             <ThemeToggle />
           </Box>
         )}
-        <Box 
+        <Box
           display="flex"
           justifyContent="end"
           alignItems="end"
           pr={2}
           position="absolute"
-          right={'50px'}
+          right="50px"
           top={2}
           zIndex={2}
         >
@@ -55,7 +61,7 @@ const Home = () => {
             as="a"
             href={repoLink}
             target="_blank"
-            colorScheme={'purple'}
+            colorScheme="purple"
           >
             <Icon fontSize="20px" as={BsGithub} />
           </Button>
@@ -80,7 +86,7 @@ const Home = () => {
             pr={2}
             position="absolute"
             right={1}
-            top={'44px'}
+            top="44px"
             zIndex={2}
           >
             <Tooltip label="New Chat">
@@ -89,7 +95,7 @@ const Home = () => {
                 size="sm"
                 py={4}
                 onClick={() => setMessages([])}
-                colorScheme={'green'}
+                colorScheme="green"
               >
                 <Icon fontSize="20px" as={IoMdAdd} />
               </Button>
