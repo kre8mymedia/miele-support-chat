@@ -35,7 +35,7 @@ const Layout = ({ children }: LayoutProps) => {
         <Flex as="main">
           <Box
             flex="0 0 auto"
-            h="80vh"
+            h={isLargerThanLG ? '100vh' : '80vh'}
             width={{ base: '0%', lg: '15%' }}
             bg="rgb(23, 25, 35)"
             position="relative"
