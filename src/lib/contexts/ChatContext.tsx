@@ -1,4 +1,4 @@
-import { useColorMode, useDisclosure } from '@chakra-ui/react';
+import { useColorMode } from '@chakra-ui/react';
 import { useContext, createContext, useState, useEffect } from 'react';
 
 import {
@@ -9,8 +9,6 @@ import {
   VECTORSTORE_FILE_PATH,
 } from '../config';
 import type { IContextProvider } from '../interfaces/Provider';
-
-import { useAppContext } from './AppContext';
 
 type Message = {
   content: string;
