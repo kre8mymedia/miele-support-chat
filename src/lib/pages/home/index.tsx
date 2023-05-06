@@ -24,9 +24,6 @@ const Home = () => {
         }}
         position="relative"
       >
-        
-        
-
         {isLargerThanLG && (
           <Box 
             display="flex"

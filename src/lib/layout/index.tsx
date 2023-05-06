@@ -34,6 +34,7 @@ const Layout = ({ children }: LayoutProps) => {
             bg='rgb(23, 25, 35)'
             position={'relative'}
             pt={3}
+            color={'white'}
           >
             {isLargerThanLG && (
               <Box textAlign={'center'}>

@@ -46,7 +46,7 @@ export default function DocChat() {
   const [question, setQuestion] = useState('');
   const [shouldScroll, setShouldScroll] = useState(true);
   const [sendButtonColor, setSendButtonColor] = useState('gray');
-  const newColor = colorMode === 'light' ? 'red' : 'cyan';
+  const newColor = colorMode === 'light' ? '#805AD5' : 'cyan';
   const messagesRef = useRef(null);
 
   const handleScroll = () => {
@@ -135,6 +135,9 @@ export default function DocChat() {
                   key={index}
                   className={message.className}
                   style={{
+                    background: message.className === 'client-message' 
+                                                      ? (colorMode === 'light' ? '#EAECEF' : 'rgb(44, 49, 61)')
+                                                      : (colorMode === 'light' ? 'white' : '#1A202C'),
                     // background: colorMode === 'light' ? 'whitesmoke' : '#171923',
                     // padding: "10px",
                     // whiteSpace: 'pre-line'
@@ -143,7 +146,7 @@ export default function DocChat() {
                   }}
                 >
                   {message.className === 'client-message' ? (
-                    <Text variant="h3" fontSize="18px" color="cyan.400" pt={2}>
+                    <Text variant="h3" fontSize="18px" color={newColor} pt={2}>
                       👨‍💻 You:
                     </Text>
                   ) : (
@@ -175,7 +178,7 @@ export default function DocChat() {
                         const match = /language-(\w+)/.exec(className || '');
                         return !inline && match ? (
                           <Box p="10px">
-                            <Box bg="black" mb={-2} p={1.5}>
+                            <Box bg="black" color={'white'} mb={-2} p={1.5}>
                               <Text>{match[1]}</Text>
                             </Box>
                             <SyntaxHighlighter
