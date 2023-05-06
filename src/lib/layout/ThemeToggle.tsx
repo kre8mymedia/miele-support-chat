@@ -11,7 +11,10 @@ const ThemeToggle = () => {
       size="sm"
       py={4}
     >
-      <Icon fontSize="20px" as={colorMode === 'light' ? RiMoonFill : RiSunLine} />
+      <Icon
+        fontSize="20px"
+        as={colorMode === 'light' ? RiMoonFill : RiSunLine}
+      />
     </Button>
   );
 };
