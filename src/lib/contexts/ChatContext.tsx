@@ -42,7 +42,7 @@ export default function ChatProvider({ children }: IContextProvider) {
     filePath: VECTORSTORE_FILE_PATH || 'formio.pkl',
   });
   const [wsUrl, setWsUrl] = useState(
-    `${HOST}/chat-vector-db?api_key=${API_KEY}&bucket=${params.bucketName}&path=${params.filePath}`
+    `${HOST}/ws-proxy`
   );
 
   const addMessage = (content: any, className: string) => {
