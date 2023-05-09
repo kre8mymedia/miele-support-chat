@@ -43,6 +43,7 @@ export default function DocChat() {
     websckt,
     setWebsckt,
     chatModel,
+    isChecked,
   } = useChatContext();
   const [question, setQuestion] = useState('');
   const [shouldScroll, setShouldScroll] = useState(true);
@@ -75,6 +76,7 @@ export default function DocChat() {
         system: systemMessage,
         temperature: temperature / 100,
         model: chatModel,
+        sources: isChecked,
       })
     );
     setQuestion('');

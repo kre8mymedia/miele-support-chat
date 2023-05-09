@@ -42,6 +42,7 @@ export default function ChatProvider({ children }: IContextProvider) {
     filePath: VECTORSTORE_FILE_PATH || 'formio.pkl',
   });
   const [wsUrl, setWsUrl] = useState(`${HOST}/formio-proxy`);
+  const [isChecked, setIsChecked] = useState(false);
 
   const addMessage = (content: any, className: string) => {
     setMessages((prevMessages) => [...prevMessages, { content, className }]);
@@ -89,6 +90,11 @@ export default function ChatProvider({ children }: IContextProvider) {
     }
   }
 
+  function disconnect() {
+    setConnected(false);
+    websckt?.close();
+  }
+
   useEffect(() => {
     const prevModelExists = sessionStorage.getItem('model');
     if (prevModelExists) {
@@ -103,10 +109,14 @@ export default function ChatProvider({ children }: IContextProvider) {
     }
   }, [systemMessage]);
 
-  function disconnect() {
-    setConnected(false);
-    websckt?.close();
-  }
+  useEffect(() => {
+    const prevExists = sessionStorage.getItem('sources');
+    if (prevExists) {
+        setIsChecked(prevExists === 'false' ? false : true);
+    }
+  }, [isChecked])
+
+  
 
   // useEffect(() => {
   //   const switchColor = messages.replace(new RegExp(oldColor, 'g'), newColor);
@@ -136,6 +146,8 @@ export default function ChatProvider({ children }: IContextProvider) {
         setWebsckt,
         chatModel,
         setChatModel,
+        isChecked,
+        setIsChecked
       }}
     >
       {children}

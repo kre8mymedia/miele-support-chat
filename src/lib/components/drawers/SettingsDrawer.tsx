@@ -21,6 +21,7 @@ import {
   Icon,
   FormControl,
   Select,
+  Checkbox,
 } from '@chakra-ui/react';
 import { useState, useRef } from 'react';
 import { AiFillSetting } from 'react-icons/ai';
@@ -43,10 +44,17 @@ export default function SettingsDrawer() {
     setTemperature,
     setChatModel,
     chatModel,
+    setIsChecked,
+    isChecked
   } = useChatContext();
 
   const handleSliderChange = (e: { target: { value: string } }) => {
     setTemperature(parseInt(e.target.value, 10));
+  };
+
+  const handleCheckboxChange = (e: { target: { checked: any } }) => {
+    setIsChecked(e.target.checked);
+    sessionStorage.setItem('sources', e.target.checked)
   };
 
   const handleModelChange = (e: { target: { value: any } }) => {
@@ -161,6 +169,9 @@ export default function SettingsDrawer() {
                     <option value={ChatModels.GPT_4}>gpt-4 &#40;Smarter&#41;</option>
                   </Select>
                 </FormControl>
+                <Box mt={3}>
+                  <FormLabel><Checkbox onChange={handleCheckboxChange} isChecked={isChecked}>Source Docs</Checkbox></FormLabel>
+                </Box>
               </Box>
             </Stack>
           </DrawerBody>
