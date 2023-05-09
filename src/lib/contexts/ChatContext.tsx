@@ -112,11 +112,9 @@ export default function ChatProvider({ children }: IContextProvider) {
   useEffect(() => {
     const prevExists = sessionStorage.getItem('sources');
     if (prevExists) {
-        setIsChecked(prevExists === 'false' ? false : true);
+      setIsChecked(prevExists !== 'false');
     }
-  }, [isChecked])
-
-  
+  }, [isChecked]);
 
   // useEffect(() => {
   //   const switchColor = messages.replace(new RegExp(oldColor, 'g'), newColor);
@@ -147,7 +145,7 @@ export default function ChatProvider({ children }: IContextProvider) {
         chatModel,
         setChatModel,
         isChecked,
-        setIsChecked
+        setIsChecked,
       }}
     >
       {children}

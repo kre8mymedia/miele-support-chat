@@ -45,7 +45,7 @@ export default function SettingsDrawer() {
     setChatModel,
     chatModel,
     setIsChecked,
-    isChecked
+    isChecked,
   } = useChatContext();
 
   const handleSliderChange = (e: { target: { value: string } }) => {
@@ -54,7 +54,7 @@ export default function SettingsDrawer() {
 
   const handleCheckboxChange = (e: { target: { checked: any } }) => {
     setIsChecked(e.target.checked);
-    sessionStorage.setItem('sources', e.target.checked)
+    sessionStorage.setItem('sources', e.target.checked);
   };
 
   const handleModelChange = (e: { target: { value: any } }) => {
@@ -165,12 +165,23 @@ export default function SettingsDrawer() {
                     onChange={handleModelChange}
                     value={chatModel}
                   >
-                    <option value={ChatModels.GPT_3_5}>gpt-3.5-turbo &#40;Faster&#41;</option>
-                    <option value={ChatModels.GPT_4}>gpt-4 &#40;Smarter&#41;</option>
+                    <option value={ChatModels.GPT_3_5}>
+                      gpt-3.5-turbo &#40;Faster&#41;
+                    </option>
+                    <option value={ChatModels.GPT_4}>
+                      gpt-4 &#40;Smarter&#41;
+                    </option>
                   </Select>
                 </FormControl>
                 <Box mt={3}>
-                  <FormLabel><Checkbox onChange={handleCheckboxChange} isChecked={isChecked}>Source Docs</Checkbox></FormLabel>
+                  <FormLabel>
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={isChecked}
+                    >
+                      Source Docs
+                    </Checkbox>
+                  </FormLabel>
                 </Box>
               </Box>
             </Stack>

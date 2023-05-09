@@ -12,7 +12,14 @@ import type { ReactNode } from 'react';
 import { IoMdAdd } from 'react-icons/io';
 // import SettingsDrawer from '../components/drawers/SettingsDrawer';
 
-import { APP_TITLE, APP_VERSION, CONTEXT_LINK, LOGO_LINK, SECONDARY, SIDEBAR_COLOR } from '../config';
+import {
+  APP_TITLE,
+  APP_VERSION,
+  CONTEXT_LINK,
+  LOGO_LINK,
+  SECONDARY,
+  SIDEBAR_COLOR,
+} from '../config';
 import { useChatContext } from '../contexts/ChatContext';
 
 import Header from './Header';
@@ -46,7 +53,7 @@ const Layout = ({ children }: LayoutProps) => {
             {isLargerThanLG && (
               <Box textAlign="center">
                 {/* <ChakraLink href={CONTEXT_LINK} color={SECONDARY}>{APP_TITLE}</ChakraLink>{' '} */}
-                <Image src={LOGO_LINK} alt='Form.io' />
+                <Image src={LOGO_LINK} alt="Form.io" />
                 {APP_VERSION ? `- ${APP_VERSION}` : null}
                 <Text fontSize="xs" colorScheme="green">
                   <Link

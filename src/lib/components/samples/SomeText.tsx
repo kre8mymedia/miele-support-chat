@@ -5,7 +5,7 @@ const SomeText = () => {
   return (
     <Grid textAlign="center">
       <Heading as="h1" size="lg">
-        Welcome to {' '}
+        Welcome to{' '}
         <ChakraLink
           color="green.200"
           href="https://help.form.io"

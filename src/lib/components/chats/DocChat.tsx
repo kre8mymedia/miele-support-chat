@@ -19,11 +19,11 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { okaidia } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import rehypeRaw from 'rehype-raw';
-import { CLIENT_MSG_BG, MAIN_BG, SECONDARY } from '~/lib/config';
 
 import { useChatContext } from '../../contexts/ChatContext';
 import CTASection from '../samples/CTASection';
 import SomeText from '../samples/SomeText';
+import { CLIENT_MSG_BG, MAIN_BG, SECONDARY } from '~/lib/config';
 
 export default function DocChat() {
   const { colorMode } = useColorMode();

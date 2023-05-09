@@ -7,7 +7,7 @@ import ThemeToggle from './ThemeToggle';
 
 const Header = () => {
   return (
-    <Flex as="header" width="full" align="center" py={2} bg={'#000'}>
+    <Flex as="header" width="full" align="center" py={2} bg="#000">
       <Box>
         <ChakraLink ml={5} href={CONTEXT_LINK}>
           {APP_TITLE}
