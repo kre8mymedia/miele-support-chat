@@ -5,7 +5,7 @@ const version = APP_VERSION ? `- ${APP_VERSION}` : null
 /** @type {import('next-seo').DefaultSeoProps} */
 const defaultSEOConfig = {
   title: APP_TITLE,
-  titleTemplate: `%s | ${APP_TITLE} ${version}`,
+  titleTemplate: `%s | ${APP_TITLE}`,
   defaultTitle: APP_TITLE.toLowerCase().replace(/ /g, '-'),
   description: "Form.io Chat Assistant",
   canonical: "https://formio.promptengineers.ai",
