@@ -6,7 +6,7 @@ const repoLink = 'https://github.com/kre8mymedia/Prompt-Engineers-Chat-Starter';
 const CTASection = () => {
   return (
     <Box textAlign="center">
-      <Box transform="scale(0.85)">
+      {/* <Box transform="scale(0.85)">
         <Flex marginY={4} justifyContent="center" gap={2}>
           <Link
             aria-label="Deploy to Vercel"
@@ -36,17 +36,17 @@ const CTASection = () => {
             />
           </Link>
         </Flex>
-      </Box>
+      </Box> */}
 
       <Flex justifyContent="center" alignItems="center" gap={2}>
-        <Button
+        {/* <Button
           as="a"
           href="https://github.com/kre8mymedia/Prompt-Engineers-Chat-Starter/generate"
           target="_blank"
           size="sm"
         >
           Use This Template
-        </Button>
+        </Button> */}
         {/* <Button
           as="a"
           href={repoLink}

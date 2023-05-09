@@ -57,7 +57,7 @@
 }
 
 .server-message {
-  background-color: #1a202c;
+  background-color: #333;
   padding: 5px;
   /* margin: 10px; */
   padding: 0px 20%;
@@ -65,7 +65,7 @@
   font-size: 14px;
 }
 .client-message {
-  background-color: rgb(44, 49, 61);
+  background-color: rgb(55, 128, 59);
   padding: 5px;
   /* margin: 10px; */
   padding: 0px 20%;

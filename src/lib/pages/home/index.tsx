@@ -30,7 +30,7 @@ const Home = () => {
         }}
         position="relative"
       >
-        {isLargerThanLG && (
+        {/* {isLargerThanLG && (
           <Box
             display="flex"
             justifyContent="end"
@@ -43,8 +43,8 @@ const Home = () => {
           >
             <ThemeToggle />
           </Box>
-        )}
-        <Box
+        )} */}
+        {/* <Box
           display="flex"
           justifyContent="end"
           alignItems="end"
@@ -65,7 +65,7 @@ const Home = () => {
           >
             <Icon fontSize="20px" as={BsGithub} />
           </Button>
-        </Box>
+        </Box> */}
         <Box
           display="flex"
           justifyContent="end"
