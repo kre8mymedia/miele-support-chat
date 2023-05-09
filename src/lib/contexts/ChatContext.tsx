@@ -41,7 +41,7 @@ export default function ChatProvider({ children }: IContextProvider) {
     bucketName: AWS_BUCKET_NAME || 'prompt-engineers-dev',
     filePath: VECTORSTORE_FILE_PATH || 'formio.pkl',
   });
-  const [wsUrl, setWsUrl] = useState(`${HOST}/ws-proxy`);
+  const [wsUrl, setWsUrl] = useState(`${HOST}/formio-proxy`);
 
   const addMessage = (content: any, className: string) => {
     setMessages((prevMessages) => [...prevMessages, { content, className }]);
