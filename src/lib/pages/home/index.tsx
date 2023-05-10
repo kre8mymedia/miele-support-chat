@@ -19,7 +19,7 @@ const repoLink = 'https://github.com/kre8mymedia/Prompt-Engineers-Chat-Starter';
 
 const Home = () => {
   const [isLargerThanLG] = useMediaQuery('(min-width: 62em)');
-  const { messages, setMessages } = useChatContext();
+  const { messages, resetSession } = useChatContext();
 
   return (
     <>
@@ -85,8 +85,8 @@ const Home = () => {
             alignItems="end"
             pr={2}
             position="absolute"
-            right={1}
-            top="44px"
+            right={12}
+            top={2}
             zIndex={2}
           >
             <Tooltip label="New Chat">
@@ -94,7 +94,7 @@ const Home = () => {
                 aria-label="theme toggle"
                 size="sm"
                 py={4}
-                onClick={() => setMessages([])}
+                onClick={resetSession}
                 colorScheme="green"
               >
                 <Icon fontSize="20px" as={IoMdAdd} />
