@@ -29,7 +29,7 @@ type LayoutProps = {
 };
 
 const Layout = ({ children }: LayoutProps) => {
-  const { setMessages } = useChatContext();
+  const { resetSession } = useChatContext();
   const [isLargerThanLG] = useMediaQuery('(min-width: 62em)'); // 62em is equivalent to the lg breakpoint in Chakra UI
 
   return (
@@ -66,7 +66,7 @@ const Layout = ({ children }: LayoutProps) => {
                 </Text>
                 <Button
                   color={SECONDARY}
-                  onClick={() => setMessages([])}
+                  onClick={resetSession}
                   // colorScheme="teal"
                   variant="outline"
                   leftIcon={<IoMdAdd />}
