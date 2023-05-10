@@ -91,18 +91,16 @@ export default function ChatProvider({ children }: IContextProvider) {
   }
 
   function resetSession() {
-    console.log("resetting session")
+    console.log('resetting session');
     setMessages([]);
     websckt?.close();
     // This will not connect but is here to reset the connection by changing the wsUrl
-    setWsUrl(`${HOST}/formio-proxy?test=1234`); 
+    setWsUrl(`${HOST}/formio-proxy?test=1234`);
     setTimeout(() => {
-      setWsUrl(`${HOST}/formio-proxy`);  
+      setWsUrl(`${HOST}/formio-proxy`);
     }, 500);
     // This will reconnect to create a new session
-           
   }
-
 
   function disconnect() {
     setConnected(false);
@@ -160,7 +158,7 @@ export default function ChatProvider({ children }: IContextProvider) {
         setChatModel,
         isChecked,
         setIsChecked,
-        resetSession
+        resetSession,
       }}
     >
       {children}
