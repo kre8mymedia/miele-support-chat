@@ -7,19 +7,19 @@ const defaultSEOConfig = {
   title: APP_TITLE,
   titleTemplate: `%s | ${APP_TITLE}`,
   defaultTitle: APP_TITLE.toLowerCase().replace(/ /g, '-'),
-  description: "Form.io Chat Assistant",
-  canonical: "https://formio.promptengineers.ai",
+  description: "Miele Chat Assistant",
+  canonical: "https://miele.promptengineers.ai",
   openGraph: {
-    url: "https://formio.promptengineers.ai",
+    url: "https://miele.promptengineers.ai",
     title: APP_TITLE.toLowerCase().replace(/ /g, '-'),
-    description: "Form.io Chat Assistant",
+    description: "Miele Chat Assistant",
     images: [
       {
         url: LOGO_LINK,
-        alt: "Form.io GPT",
+        alt: "Miele GPT",
       },
     ],
-    site_name: "formio-gpt",
+    site_name: "miele-gpt",
   },
   twitter: {
     handle: "@JohnEggz",

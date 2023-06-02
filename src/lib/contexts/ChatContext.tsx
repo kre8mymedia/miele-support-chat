@@ -39,9 +39,9 @@ export default function ChatProvider({ children }: IContextProvider) {
   const [systemMessage, setSystemMessage] = useState(defaultSystemMessage);
   const [params, setParams] = useState({
     bucketName: AWS_BUCKET_NAME || 'prompt-engineers-dev',
-    filePath: VECTORSTORE_FILE_PATH || 'formio.pkl',
+    filePath: VECTORSTORE_FILE_PATH || 'miele-vectorstore.pkl',
   });
-  const [wsUrl, setWsUrl] = useState(`${HOST}/formio-proxy`);
+  const [wsUrl, setWsUrl] = useState(`${HOST}/miele-proxy`);
   const [isChecked, setIsChecked] = useState(false);
 
   const addMessage = (content: any, className: string) => {
@@ -95,9 +95,9 @@ export default function ChatProvider({ children }: IContextProvider) {
     setMessages([]);
     websckt?.close();
     // This will not connect but is here to reset the connection by changing the wsUrl
-    setWsUrl(`${HOST}/formio-proxy?test=1234`);
+    setWsUrl(`${HOST}/miele-proxy?test=1234`);
     setTimeout(() => {
-      setWsUrl(`${HOST}/formio-proxy`);
+      setWsUrl(`${HOST}/miele-proxy`);
     }, 500);
     // This will reconnect to create a new session
   }
