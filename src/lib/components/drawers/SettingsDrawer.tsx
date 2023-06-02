@@ -65,7 +65,7 @@ export default function SettingsDrawer() {
   return (
     <>
       <Tooltip label="Settings">
-        <Button size="sm" onClick={onOpen} colorScheme="green">
+        <Button size="sm" onClick={onOpen} colorScheme="red">
           <Icon fontSize="18px" as={AiFillSetting} />
         </Button>
       </Tooltip>
@@ -151,7 +151,7 @@ export default function SettingsDrawer() {
                       <SliderFilledTrack bg={SECONDARY} />
                     </SliderTrack>
                     <SliderThumb boxSize={6}>
-                      <Box color="green" as={MdGraphicEq} />
+                      <Box color="#8C0014" as={MdGraphicEq} />
                     </SliderThumb>
                   </Slider>
                 </FormControl>

@@ -95,7 +95,7 @@ const Home = () => {
                 size="sm"
                 py={4}
                 onClick={resetSession}
-                colorScheme="green"
+                colorScheme="red"
               >
                 <Icon fontSize="20px" as={IoMdAdd} />
               </Button>

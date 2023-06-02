@@ -16,7 +16,7 @@ export enum ChatModels {
 export const DEFAULT_CHAT_MODEL =
   process.env.NEXT_PUBLIC_DEFAULT_CHAT_MODEL || ChatModels.GPT_3_5;
 
-export const APP_TITLE = process.env.NEXT_PUBLIC_APP_TITLE || 'Langchain GPT';
+export const APP_TITLE = process.env.NEXT_PUBLIC_APP_TITLE || 'Miele GPT';
 export const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION || '';
 export const CONTEXT_LINK =
   process.env.NEXT_PUBLIC_CONTEXT_LINK ||
@@ -24,9 +24,9 @@ export const CONTEXT_LINK =
 
 export const SIDEBAR_COLOR = '#000';
 export const MAIN_BG = '#333';
-export const SECONDARY = '#6AB148';
+export const SECONDARY = '#8C0014';
 export const CLIENT_MSG_BG = '#272822';
 
 export const APP_NAME = 'Miele GPT';
 
-export const LOGO_LINK = '';
+export const LOGO_LINK = 'https://www.mieleusa.com/wmedia/svg/logo.svg';

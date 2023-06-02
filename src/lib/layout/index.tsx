@@ -51,11 +51,11 @@ const Layout = ({ children }: LayoutProps) => {
             color="white"
           >
             {isLargerThanLG && (
-              <Box textAlign="center">
+              <Flex direction="column" alignItems="center">
                 {/* <ChakraLink href={CONTEXT_LINK} color={SECONDARY}>{APP_TITLE}</ChakraLink>{' '} */}
                 <Image src={LOGO_LINK} alt="Form.io" />
                 {APP_VERSION ? `- ${APP_VERSION}` : null}
-                <Text fontSize="xs" colorScheme="green">
+                <Text fontSize="xs" colorScheme="red">
                   <Link
                     href="https://promptengineers.ai"
                     // isExternal
@@ -76,7 +76,7 @@ const Layout = ({ children }: LayoutProps) => {
                 >
                   New Chat
                 </Button>
-              </Box>
+              </Flex>
             )}
           </Box>
           <Box flex="1" width={{ base: '100%', lg: '75%' }}>

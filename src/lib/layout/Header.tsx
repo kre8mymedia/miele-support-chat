@@ -13,7 +13,7 @@ const Header = () => {
           {APP_TITLE}
         </ChakraLink>{' '}
         {APP_VERSION ? `- ${APP_VERSION}` : null}
-        <Text fontSize="xs" ml={5} colorScheme="green">
+        <Text fontSize="xs" ml={5} colorScheme="red">
           <Link
             href="https://promptengineers.ai"
             // isExternal

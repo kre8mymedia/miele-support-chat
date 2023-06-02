@@ -7,17 +7,17 @@ const SomeText = () => {
       <Heading as="h1" size="lg">
         Welcome to{' '}
         <ChakraLink
-          color="green.200"
-          href="https://help.form.io"
+          color="red.600"
+          href="https://us.mieleusa.com/spec-library/?PageName=Spec"
           isExternal
           rel="noopener noreferrer"
         >
-          Form.io GPT
+          Miele GPT
         </ChakraLink>
       </Heading>
 
       <Text fontSize="s">
-        This chatbot is equipped with the full documentation from Form.io
+        This chatbot is equipped with the full documentation from Miele
       </Text>
     </Grid>
   );
