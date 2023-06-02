@@ -21,13 +21,14 @@ import {
   Icon,
   FormControl,
   Select,
+  Checkbox,
 } from '@chakra-ui/react';
 import { useState, useRef } from 'react';
 import { AiFillSetting } from 'react-icons/ai';
 import { MdGraphicEq } from 'react-icons/md';
 import { RxReset } from 'react-icons/rx';
 
-import { ChatModels } from '../../config/index';
+import { ChatModels, MAIN_BG, SECONDARY } from '../../config/index';
 import {
   defaultSystemMessage,
   useChatContext,
@@ -43,10 +44,17 @@ export default function SettingsDrawer() {
     setTemperature,
     setChatModel,
     chatModel,
+    setIsChecked,
+    isChecked,
   } = useChatContext();
 
   const handleSliderChange = (e: { target: { value: string } }) => {
     setTemperature(parseInt(e.target.value, 10));
+  };
+
+  const handleCheckboxChange = (e: { target: { checked: any } }) => {
+    setIsChecked(e.target.checked);
+    sessionStorage.setItem('sources', e.target.checked);
   };
 
   const handleModelChange = (e: { target: { value: any } }) => {
@@ -57,13 +65,13 @@ export default function SettingsDrawer() {
   return (
     <>
       <Tooltip label="Settings">
-        <Button size="sm" onClick={onOpen} colorScheme="blue">
+        <Button size="sm" onClick={onOpen} colorScheme="green">
           <Icon fontSize="18px" as={AiFillSetting} />
         </Button>
       </Tooltip>
       <Drawer placement="right" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent bg={MAIN_BG}>
           <DrawerCloseButton />
           <DrawerHeader borderBottomWidth="1px">Settings</DrawerHeader>
           <DrawerBody>
@@ -140,10 +148,10 @@ export default function SettingsDrawer() {
                     onChange={(val) => setTemperature(val)}
                   >
                     <SliderTrack bg="red.100">
-                      <SliderFilledTrack bg="tomato" />
+                      <SliderFilledTrack bg={SECONDARY} />
                     </SliderTrack>
                     <SliderThumb boxSize={6}>
-                      <Box color="tomato" as={MdGraphicEq} />
+                      <Box color="green" as={MdGraphicEq} />
                     </SliderThumb>
                   </Slider>
                 </FormControl>
@@ -151,19 +159,30 @@ export default function SettingsDrawer() {
                 <FormControl>
                   <FormLabel>Model</FormLabel>
                   <Select
+                    bg={MAIN_BG}
                     variant="outline"
                     size="sm"
                     onChange={handleModelChange}
                     value={chatModel}
                   >
-                    <option value={ChatModels.GPT_3_5}>gpt-3.5-turbo</option>
-                    {/* <option value='gpt-3.5-turbo-0301'>gpt-3.5-turbo-0301</option> */}
-                    <option value={ChatModels.GPT_4}>gpt-4</option>
-                    {/* <option value='gpt-4-0314'>gpt-4-0314</option> */}
-                    {/* <option value={ChatModels.GPT_4_32K}>gpt-4-32k</option> */}
-                    {/* <option value='gpt-4-32k-0314'>gpt-4-32k-0314</option> */}
+                    <option value={ChatModels.GPT_3_5}>
+                      gpt-3.5-turbo &#40;Faster&#41;
+                    </option>
+                    <option value={ChatModels.GPT_4}>
+                      gpt-4 &#40;Smarter&#41;
+                    </option>
                   </Select>
                 </FormControl>
+                <Box mt={3}>
+                  <FormLabel>
+                    <Checkbox
+                      onChange={handleCheckboxChange}
+                      isChecked={isChecked}
+                    >
+                      Source Docs
+                    </Checkbox>
+                  </FormLabel>
+                </Box>
               </Box>
             </Stack>
           </DrawerBody>

@@ -1,4 +1,4 @@
-import { useColorMode, useDisclosure } from '@chakra-ui/react';
+import { useColorMode } from '@chakra-ui/react';
 import { useContext, createContext, useState, useEffect } from 'react';
 
 import {
@@ -9,8 +9,6 @@ import {
   VECTORSTORE_FILE_PATH,
 } from '../config';
 import type { IContextProvider } from '../interfaces/Provider';
-
-import { useAppContext } from './AppContext';
 
 type Message = {
   content: string;
@@ -43,9 +41,8 @@ export default function ChatProvider({ children }: IContextProvider) {
     bucketName: AWS_BUCKET_NAME || 'prompt-engineers-dev',
     filePath: VECTORSTORE_FILE_PATH || 'formio.pkl',
   });
-  const [wsUrl, setWsUrl] = useState(
-    `${HOST}/chat-vector-db?api_key=${API_KEY}&bucket=${params.bucketName}&path=${params.filePath}`
-  );
+  const [wsUrl, setWsUrl] = useState(`${HOST}/formio-proxy`);
+  const [isChecked, setIsChecked] = useState(false);
 
   const addMessage = (content: any, className: string) => {
     setMessages((prevMessages) => [...prevMessages, { content, className }]);
@@ -93,6 +90,23 @@ export default function ChatProvider({ children }: IContextProvider) {
     }
   }
 
+  function resetSession() {
+    console.log('resetting session');
+    setMessages([]);
+    websckt?.close();
+    // This will not connect but is here to reset the connection by changing the wsUrl
+    setWsUrl(`${HOST}/formio-proxy?test=1234`);
+    setTimeout(() => {
+      setWsUrl(`${HOST}/formio-proxy`);
+    }, 500);
+    // This will reconnect to create a new session
+  }
+
+  function disconnect() {
+    setConnected(false);
+    websckt?.close();
+  }
+
   useEffect(() => {
     const prevModelExists = sessionStorage.getItem('model');
     if (prevModelExists) {
@@ -107,10 +121,12 @@ export default function ChatProvider({ children }: IContextProvider) {
     }
   }, [systemMessage]);
 
-  function disconnect() {
-    setConnected(false);
-    websckt?.close();
-  }
+  useEffect(() => {
+    const prevExists = sessionStorage.getItem('sources');
+    if (prevExists) {
+      setIsChecked(prevExists !== 'false');
+    }
+  }, [isChecked]);
 
   // useEffect(() => {
   //   const switchColor = messages.replace(new RegExp(oldColor, 'g'), newColor);
@@ -140,6 +156,9 @@ export default function ChatProvider({ children }: IContextProvider) {
         setWebsckt,
         chatModel,
         setChatModel,
+        isChecked,
+        setIsChecked,
+        resetSession,
       }}
     >
       {children}

@@ -23,6 +23,7 @@ import rehypeRaw from 'rehype-raw';
 import { useChatContext } from '../../contexts/ChatContext';
 import CTASection from '../samples/CTASection';
 import SomeText from '../samples/SomeText';
+import { CLIENT_MSG_BG, MAIN_BG, SECONDARY } from '~/lib/config';
 
 export default function DocChat() {
   const { colorMode } = useColorMode();
@@ -42,11 +43,12 @@ export default function DocChat() {
     websckt,
     setWebsckt,
     chatModel,
+    isChecked,
   } = useChatContext();
   const [question, setQuestion] = useState('');
   const [shouldScroll, setShouldScroll] = useState(true);
   const [sendButtonColor, setSendButtonColor] = useState('gray');
-  const newColor = colorMode === 'light' ? '#805AD5' : 'cyan';
+  const newColor = colorMode === 'light' ? '#805AD5' : SECONDARY;
   const messagesRef = useRef(null);
 
   const handleScroll = () => {
@@ -74,6 +76,7 @@ export default function DocChat() {
         system: systemMessage,
         temperature: temperature / 100,
         model: chatModel,
+        sources: isChecked,
       })
     );
     setQuestion('');
@@ -121,7 +124,7 @@ export default function DocChat() {
   }, []);
 
   return (
-    <Box height="100%">
+    <Box height="100%" bg="#333">
       <Box>
         {messages.length > 0 ? (
           <Box
@@ -139,10 +142,10 @@ export default function DocChat() {
                       message.className === 'client-message'
                         ? colorMode === 'light'
                           ? '#EAECEF'
-                          : 'rgb(44, 49, 61)'
+                          : CLIENT_MSG_BG
                         : colorMode === 'light'
                         ? 'white'
-                        : '#1A202C',
+                        : MAIN_BG,
                     // background: colorMode === 'light' ? 'whitesmoke' : '#171923',
                     // padding: "10px",
                     // whiteSpace: 'pre-line'
@@ -200,7 +203,7 @@ export default function DocChat() {
                           <code
                             className={className}
                             {...props}
-                            style={{ color: '#DF3079' }}
+                            style={{ color: SECONDARY }}
                           >
                             {children}
                           </code>
@@ -234,7 +237,7 @@ export default function DocChat() {
       </Box>
       <Box
         className="chat-input-space"
-        bg={useColorModeValue('white-smoke', '#1A202C')}
+        bg={useColorModeValue('white-smoke', MAIN_BG)}
       >
         <Box textAlign="center" height="24px">
           {header}
